@@ -17,11 +17,11 @@
     <meta name="description" content="Browse our complete fleet of premium automatic scooters. Check real-time availability and book your perfect ride in Bali today with Ayu Iras Rent.">
     <meta property="og:title" content="Fleet Collection | Ayu Iras Rent">
     <meta property="og:description" content="Browse our complete fleet of premium automatic scooters. Check real-time availability and book your perfect ride in Bali today!">
-    <meta property="og:image" content="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB">
+    <meta property="og:image" content="https://lh3.googleusercontent.com/d/13YX47CjL9ztVimpu9673onHUlQIDLwfB">
     <meta property="og:url" content="https://www.ayuirasrentalbali.com/showunit.html">
     <meta property="og:type" content="website">
 
-    <link rel="icon" type="image/png" href="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB">
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/13YX47CjL9ztVimpu9673onHUlQIDLwfB">
     
     <meta name="theme-color" content="#1E1E1E">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -113,7 +113,7 @@
 
 <nav>
     <a href="index.html" class="logo">
-        <img src="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB" alt="Logo">
+        <img src="https://lh3.googleusercontent.com/d/13YX47CjL9ztVimpu9673onHUlQIDLwfB" alt="Logo">
         <span>Ayu Iras <b>Rent</b></span>
     </a>
     <button class="lang-btn" onclick="toggleLang()">EN | ID</button>
@@ -178,6 +178,28 @@
         }
     }
 
+    // UNIVERSAL FIELD EXTRACTOR (Resilient to dynamic Sheets API formats)
+    function extractFields(m) {
+        if (!m) return null;
+        let plate = "", type = "", brand = "", price = 0, status = "Available";
+
+        if (Array.isArray(m)) {
+            plate = m[0] ? m[0].toString().trim() : "";
+            type = m[1] ? m[1].toString().trim() : "";
+            brand = m[2] ? m[2].toString().trim() : "";
+            price = m[3] ? Number(m[3]) : 0;
+            status = m[5] ? m[5].toString().trim() : "Available";
+        } else if (typeof m === 'object') {
+            plate = (m['no motor'] || m['no_motor'] || m['nomotor'] || m['Plate'] || m['plate'] || "").toString().trim();
+            type = (m['tipe motor'] || m['tipe_motor'] || m['tipemotor'] || m['Type'] || m['type'] || "").toString().trim();
+            brand = (m['brand'] || m['Brand'] || "").toString().trim();
+            let rawPrice = m['harga'] || m['Harga'] || m['price'] || m['Price'] || 0;
+            price = Number(rawPrice);
+            status = (m['status'] || m['Status'] || "Available").toString().trim();
+        }
+        return { plate, type, brand, price, status };
+    }
+
     // AUTO IMAGE FUNCTION (Spaceless resilient matching to dynamic table)
     function getAutoImage(type) {
         if (!type) return "https://placehold.co/600x400/1E1E1E/ffffff?text=Unit+Ready";
@@ -213,7 +235,18 @@
         try {
             const res = await fetch(API_URL);
             const data = await res.json();
-            renderCatalog(data.items);
+            
+            // Flexible database parsing
+            let list = [];
+            if (data && Array.isArray(data)) {
+                list = data;
+            } else if (data && data.items && Array.isArray(data.items)) {
+                list = data.items;
+            } else if (data && data.data && Array.isArray(data.data)) {
+                list = data.data;
+            }
+            
+            renderCatalog(list);
             document.getElementById('loading').style.display = 'none';
         } catch (e) { 
             console.error(e);
@@ -227,16 +260,18 @@
         let groups = {};
 
         items.forEach(m => {
-            if (!m || !m[0]) return;
-            const plate = m[0].toString().trim();
+            const dataObj = extractFields(m);
+            if (!dataObj || !dataObj.plate) return;
+
+            const plate = dataObj.plate;
             
             // KECUALIKAN UNIT REKAN (AWALAN "AIR")
             if (plate.toUpperCase().startsWith("AIR")) return;
 
-            const type = m[1];
-            const brand = m[2];
-            const price = m[3];
-            const status = (m[5] || "Available").toLowerCase();
+            const type = dataObj.type;
+            const brand = dataObj.brand;
+            const price = dataObj.price;
+            const status = dataObj.status.toLowerCase();
 
             if (!groups[type]) {
                 groups[type] = { brand: brand, type: type, price: price, ready: 0, image: getAutoImage(type) };

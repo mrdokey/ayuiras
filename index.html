@@ -14,13 +14,13 @@
     
     <title>Premium Scooter Rental in Bali | Ayu Iras Rent</title>
     <meta name="description" content="Explore Bali the easy and fun way! Rent top-condition, premium automatic scooters at the best prices in Seminyak and Kuta, Bali with Ayu Iras Rent.">
-    <link rel="icon" type="image/png" href="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB">
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/13YX47CjL9ztVimpu9673onHUlQIDLwfB">
     
     <meta name="theme-color" content="#1E1E1E">
 
     <meta property="og:title" content="Ayu Iras Rent | Premium Scooter Rental in Bali">
     <meta property="og:description" content="Explore Bali the easy and fun way! Rent top-condition, premium automatic scooters at the best prices. Book your ride today!">
-    <meta property="og:image" content="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB">
+    <meta property="og:image" content="https://lh3.googleusercontent.com/d/13YX47CjL9ztVimpu9673onHUlQIDLwfB">
     <meta property="og:url" content="https://www.ayuirasrentalbali.com"> 
     <meta property="og:type" content="website">
     
@@ -158,7 +158,7 @@
 
     <nav>
         <div class="logo">
-            <img src="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB" alt="Logo">
+            <img src="https://lh3.googleusercontent.com/d/13YX47CjL9ztVimpu9673onHUlQIDLwfB" alt="Logo">
             <span>Ayu Iras <b>Rent</b></span>
         </div>
         <button class="lang-btn" onclick="toggleLang()">EN | ID</button>
@@ -269,6 +269,28 @@
             if(el) window.scrollTo({ top: el.offsetTop - 90, behavior: 'smooth' });
         }
 
+        // UNIVERSAL FIELD EXTRACTOR (Resilient to dynamic Sheets API formats)
+        function extractFields(m) {
+            if (!m) return null;
+            let plate = "", type = "", brand = "", price = 0, status = "Available";
+
+            if (Array.isArray(m)) {
+                plate = m[0] ? m[0].toString().trim() : "";
+                type = m[1] ? m[1].toString().trim() : "";
+                brand = m[2] ? m[2].toString().trim() : "";
+                price = m[3] ? Number(m[3]) : 0;
+                status = m[5] ? m[5].toString().trim() : "Available";
+            } else if (typeof m === 'object') {
+                plate = (m['no motor'] || m['no_motor'] || m['nomotor'] || m['Plate'] || m['plate'] || "").toString().trim();
+                type = (m['tipe motor'] || m['tipe_motor'] || m['tipemotor'] || m['Type'] || m['type'] || "").toString().trim();
+                brand = (m['brand'] || m['Brand'] || "").toString().trim();
+                let rawPrice = m['harga'] || m['Harga'] || m['price'] || m['Price'] || 0;
+                price = Number(rawPrice);
+                status = (m['status'] || m['Status'] || "Available").toString().trim();
+            }
+            return { plate, type, brand, price, status };
+        }
+
         // AUTO IMAGE FUNCTION (Resilient spaceless matching to dynamic table)
         function getAutoImage(type) {
             if (!type) return "https://placehold.co/600x400/1E1E1E/ffffff?text=Unit+Ready";
@@ -305,7 +327,18 @@
             try {
                 const res = await fetch(API_URL);
                 const data = await res.json();
-                renderFleet(data.items);
+                
+                // Flexible structure parsing
+                let list = [];
+                if (data && Array.isArray(data)) {
+                    list = data;
+                } else if (data && data.items && Array.isArray(data.items)) {
+                    list = data.items;
+                } else if (data && data.data && Array.isArray(data.data)) {
+                    list = data.data;
+                }
+                
+                renderFleet(list);
             } catch (e) {
                 console.error(e);
                 document.getElementById('loadingFleet').innerHTML = "<p class='text-danger id'>Gagal memuat data armada.</p><p class='text-danger en'>Failed to load fleet data.</p>";
@@ -318,16 +351,17 @@
             let groups = {};
 
             items.forEach(m => {
-                if (!m || !m[1] || m[1].toString().trim() === "") return;
+                const dataObj = extractFields(m);
+                if (!dataObj || !dataObj.type) return;
 
-                const plate = m[0] ? m[0].toString().trim() : "";
+                const plate = dataObj.plate;
                 // KECUALIKAN UNIT REKAN (AWALAN "AIR")
                 if (plate.toUpperCase().startsWith("AIR")) return;
 
-                const type = m[1];
-                const brand = m[2];
-                const price = m[3];
-                const status = (m[5] || "Available").toLowerCase();
+                const type = dataObj.type;
+                const brand = dataObj.brand;
+                const price = dataObj.price;
+                const status = dataObj.status.toLowerCase();
 
                 if (status === "bengkel") return;
 
