@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=[ID_GOOGLE_ADS]"></script> 
+    <script> 
+      window.dataLayer = window.dataLayer || []; 
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date()); 
+      gtag('config', '[ID_GOOGLE_ADS]'); 
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Fleet Collection | Ayu Iras Rent</title>
+    
+    <meta name="description" content="Browse our complete fleet of premium automatic scooters. Check real-time availability and book your perfect ride in Bali today with Ayu Iras Rent.">
+    <meta property="og:title" content="Fleet Collection | Ayu Iras Rent">
+    <meta property="og:description" content="Browse our complete fleet of premium automatic scooters. Check real-time availability and book your perfect ride in Bali today!">
+    <meta property="og:image" content="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB">
+    <meta property="og:url" content="https://www.ayuirasrentalbali.com/showunit.html">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" type="image/png" href="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB">
+    
+    <meta name="theme-color" content="#1E1E1E">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-red: #E53935;
+            --dark-charcoal: #1E1E1E;
+            --gold-accent: #C5A059;
+            --text-dark: #121212;
+            --bg-page: #FAF9F6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: var(--bg-page); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+
+        /* MULTI-LANGUAGE */
+        body.lang-id .en { display: none !important; }
+        body.lang-en .id { display: none !important; }
+
+        /* NAVBAR ATAS */
+        nav { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 800; font-size: 1.1rem; color: var(--dark-charcoal); letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+        .logo img { height: 38px; }
+        .logo b { color: var(--primary-red); }
+        
+        /* UPDATED LANG BUTTON */
+        .lang-btn { 
+            background: var(--dark-charcoal); 
+            color: var(--gold-accent); 
+            border: 2px solid var(--gold-accent); 
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            font-size: 0.75rem; 
+            font-weight: 800; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        .lang-btn:hover {
+            background: var(--primary-red);
+            color: #fff;
+            border-color: var(--primary-red);
+        }
+
+        /* HERO MINI */
+        .hero-mini {
+            padding: 80px 0 50px; 
+            background: linear-gradient(rgba(30, 30, 30, 0.65), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1591154101811-aa97917c34db?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover; background-position: center; color: white; text-align: center; clip-path: ellipse(150% 100% at 50% 0%);
+        }
+        .hero-mini h1 { font-weight: 800; font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero-mini p { color: var(--gold-accent); font-weight: 500; }
+
+        /* CARDS KATALOG */
+        .card-motor { border: none; border-radius: 28px; background: #fff; transition: 0.4s; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid #eee; }
+        .card-motor:hover { transform: translateY(-5px); border-color: var(--primary-red); }
+        .img-wrapper { position: relative; height: 230px; overflow: hidden; background: #e9ecef; }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .status-pill { position: absolute; top: 15px; left: 15px; padding: 6px 16px; border-radius: 50px; font-size: 0.65rem; font-weight: 800; color: #fff; text-transform: uppercase; z-index: 10; }
+        
+        .bg-available { background-color: #198754; box-shadow: 0 4px 10px rgba(25, 135, 84, 0.3); } 
+        .bg-rented { background-color: #6c757d; }
+
+        .btn-booking { background-color: var(--primary-red); color: white; border: none; transition: 0.3s; }
+        .btn-booking:hover { background-color: var(--dark-charcoal); color: #fff; }
+
+        /* FOOTER */
+        footer { text-align: center; padding: 40px 20px 140px; background: var(--dark-charcoal); color: #ccc; font-size: 0.8rem; margin-top: 40px; }
+        footer .address { color: var(--gold-accent); font-style: italic; font-size: 0.75rem; margin-top: 10px; }
+
+        /* NAV MOBILE BAWAH */
+        .floating-nav { 
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            display: flex; justify-content: space-around; 
+            padding: 12px 5px calc(15px + env(safe-area-inset-bottom)); 
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.08); z-index: 9999; 
+            border-radius: 25px 25px 0 0; 
+        }
+        .nav-item { text-align: center; color: var(--dark-charcoal); text-decoration: none; font-size: 0.62rem; font-weight: 700; flex: 1; min-width: 0; }
+        .nav-item i { display: block; font-size: 1.3rem; color: var(--dark-charcoal); margin-bottom: 5px; }
+        .nav-item.active { color: var(--primary-red); }
+        .nav-item.active i { color: var(--primary-red); }
+    </style>
+</head>
+<body class="lang-en">
+
+<nav>
+    <a href="index.html" class="logo">
+        <img src="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB" alt="Logo">
+        <span>Ayu Iras <b>Rent</b></span>
+    </a>
+    <button class="lang-btn" onclick="toggleLang()">EN | ID</button>
+</nav>
+
+<header class="hero-mini">
+    <div class="container">
+        <h1 class="id">Katalog Armada</h1>
+        <h1 class="en">Fleet Collection</h1>
+        <p class="id">Pilihan unit terbaik dari Ayu Iras Rent.</p>
+        <p class="en">The best units from Ayu Iras Rent.</p>
+    </div>
+</header>
+
+<div class="container my-5" id="catalog">
+    <div id="loading" class="text-center py-5">
+        <div class="spinner-grow" style="color: var(--primary-red);"></div>
+        <p class="mt-3 fw-bold text-muted id">Menghubungkan ke Sistem...</p>
+        <p class="mt-3 fw-bold text-muted en">Connecting to system...</p>
+    </div>
+    <div class="row g-4" id="catalogContainer"></div>
+</div>
+
+<footer>
+    <p>© 2026 Ayu Iras Rent | <span class="id">Didukung oleh</span><span class="en">Powered by</span> MRD Digital Solution</p>
+    <p class="address">AIR (Ayu Iras Rental), Bali, Indonesia</p>
+</footer>
+
+<div class="floating-nav">
+    <a href="index.html" class="nav-item">
+        <i class="fas fa-home"></i> <span>Home</span>
+    </a>
+    <a href="index.html#layanan" class="nav-item">
+        <i class="fas fa-hand-holding-heart"></i> <span class="id">Layanan</span><span class="en">Services</span>
+    </a>
+    <a href="showunit.html" class="nav-item active">
+        <i class="fas fa-list-ul"></i> <span class="id">Armada</span><span class="en">Fleet</span>
+    </a>
+    <a href="cariunit.html" class="nav-item">
+        <i class="fas fa-calendar-check"></i> <span class="id">Cari Unit</span><span class="en">Check</span>
+    </a>
+    <a href="https://wa.me/6285879293700" target="_blank" class="nav-item">
+        <i class="fab fa-whatsapp"></i> <span>WhatsApp</span>
+    </a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbxzNwUJZ7Kd7JY138ea2oKSrtdjIrFeZ1xyM58CHWAGFtL05m7IbC_9R-okhrhXS53b/exec";
+    const adminWA = "6285879293700";
+    const namaKlien = "Ayu Iras Rent";
+
+    function toggleLang() {
+        document.body.classList.toggle('lang-en');
+        document.body.classList.toggle('lang-id');
+        
+        const btn = document.querySelector('.lang-btn');
+        if(document.body.classList.contains('lang-en')) {
+            btn.innerHTML = "EN | ID";
+        } else {
+            btn.innerHTML = "ID | EN";
+        }
+    }
+
+    // AUTO IMAGE FUNCTION (Spaceless resilient matching to dynamic table)
+    function getAutoImage(type) {
+        if (!type) return "https://placehold.co/600x400/1E1E1E/ffffff?text=Unit+Ready";
+        const t = type.toLowerCase().replace(/\s+/g, '');
+        if (t.includes("nmaxturbo")) return "https://i.ibb.co.com/LdfZG3jF/IMG-20260512-WA0041.jpg";
+        if (t.includes("nmaxneo")) return "https://i.ibb.co.com/Jj3MtHm7/IMG-20260519-WA0010.jpg";
+        if (t.includes("nmax")) return "https://i.ibb.co.com/6JpHW94T/IMG-20260512-WA0053.jpg";
+        if (t.includes("adv")) return "https://i.ibb.co.com/b5vVrKvV/IMG-20260512-WA0046.jpg";
+        if (t.includes("gear")) return "https://i.ibb.co.com/jdgtRkQ/IMG-20260512-WA0040.jpg";
+        if (t.includes("fino")) return "https://i.ibb.co.com/N6ZgKpdr/IMG-20260512-WA0055.jpg";
+        if (t.includes("genio")) return "https://i.ibb.co.com/5W7MvdCG/IMG-20260512-WA0043.jpg";
+        if (t.includes("lexi")) return "https://i.ibb.co.com/nMLLJ26m/IMG-20260512-WA0048.jpg";
+        if (t.includes("mio")) return "https://i.ibb.co.com/84d2sdLB/IMG-20260512-WA0054.jpg";
+        if (t.includes("niu")) return "https://i.ibb.co.com/JRgZ2VWr/IMG-20260512-WA0059.jpg";
+        if (t.includes("pcx")) return "https://i.ibb.co.com/5gbZBQNN/IMG-20260512-WA0056.jpg";
+        if (t.includes("scoopy2023")) return "https://i.ibb.co.com/1fyD1Rqm/IMG-20260512-WA0042.jpg";
+        if (t.includes("scoopy2019")) return "https://i.ibb.co.com/FLyNk2kr/IMG-20260512-WA0057.jpg";
+        if (t.includes("xmax")) return "https://i.ibb.co.com/6RWT05qb/IMG-20260512-WA0039.jpg";
+        if (t.includes("vespa")) return "https://i.ibb.co.com/FbqGSSzC/IMG-20260512-WA0051.jpg";
+        if (t.includes("stylo")) return "https://i.ibb.co.com/6RG8WkQW/IMG-20260512-WA0049.jpg";
+        if (t.includes("variokarbu")) return "https://i.ibb.co.com/NgWRXN56/IMG-20260512-WA0050.jpg";
+        if (t.includes("varioled")) return "https://i.ibb.co.com/23YkZ6Df/IMG-20260512-WA0045.jpg";
+        if (t.includes("variofi")) return "https://i.ibb.co.com/RpRrQpBL/IMG-20260512-WA0058.jpg";
+        if (t.includes("vario")) return "https://i.ibb.co.com/23YkZ6Df/IMG-20260512-WA0045.jpg";
+        if (t.includes("fazzio")) return "https://i.ibb.co.com/rRzhpbkW/IMG-20260512-WA0047.jpg";
+        if (t.includes("filano")) return "https://i.ibb.co.com/6RstwhrV/IMG-20260512-WA0062.jpg";
+        if (t.includes("spacy")) return "https://i.ibb.co.com/B5VnNpq7/4b330d335cb1496c9556338e5429bac5.jpg";
+        if (t.includes("beat")) return "https://i.ibb.co.com/6cG5CgTC/Honda-Beat-Sporty-Deluxe-Black-1.png";
+        return "https://placehold.co/600x400/1E1E1E/ffffff?text=Unit+Ready";
+    }
+
+    async function loadCatalog() {
+        try {
+            const res = await fetch(API_URL);
+            const data = await res.json();
+            renderCatalog(data.items);
+            document.getElementById('loading').style.display = 'none';
+        } catch (e) { 
+            console.error(e);
+            document.getElementById('loading').innerHTML = "<p class='text-danger fw-bold id'>Gagal memuat database.</p><p class='text-danger fw-bold en'>Failed to load database.</p>";
+        }
+    }
+
+    function renderCatalog(items) {
+        const container = document.getElementById('catalogContainer');
+        container.innerHTML = "";
+        let groups = {};
+
+        items.forEach(m => {
+            if (!m || !m[0]) return;
+            const plate = m[0].toString().trim();
+            
+            // KECUALIKAN UNIT REKAN (AWALAN "AIR")
+            if (plate.toUpperCase().startsWith("AIR")) return;
+
+            const type = m[1];
+            const brand = m[2];
+            const price = m[3];
+            const status = (m[5] || "Available").toLowerCase();
+
+            if (!groups[type]) {
+                groups[type] = { brand: brand, type: type, price: price, ready: 0, image: getAutoImage(type) };
+            }
+            if (status === "available" || status === "booked") groups[type].ready++;
+        });
+
+        for (const key in groups) {
+            const g = groups[key];
+            const isReady = g.ready > 0;
+            const statusTextID = isReady ? "READY HARI INI" : "IN RENT";
+            const statusTextEN = isReady ? "READY TODAY" : "IN RENT";
+            const statusClass = isReady ? "bg-available" : "bg-rented";
+
+            const waText = `Hello ${namaKlien}, I want to ask about the availability for ${g.brand} ${g.type}.`;
+
+            container.innerHTML += `
+                <div class="col-lg-4 col-md-6">
+                    <div class="card card-motor h-100">
+                        <div class="img-wrapper">
+                            <span class="status-pill ${statusClass}">
+                                <span class="id">${statusTextID}</span>
+                                <span class="en">${statusTextEN}</span>
+                            </span>
+                            <img src="${g.image}" alt="${g.type}" loading="lazy">
+                        </div>
+                        <div class="card-body p-4 text-center">
+                            <small class="fw-bold text-uppercase" style="color: var(--primary-red)">${g.brand}</small>
+                            <h4 class="fw-bold text-dark mb-1">${g.type}</h4>
+                            <p class="fw-bold mb-3" style="color: #198754">Rp ${Number(g.price).toLocaleString('id-ID')} <small class="text-muted">/day</small></p>
+                            
+                            <div class="d-grid gap-2">
+                                <a href="https://wa.me/${adminWA}?text=${encodeURIComponent(waText)}" 
+                                   target="_blank" 
+                                   class="btn btn-booking py-2 fw-bold rounded-pill">
+                                   <span class="id">${isReady ? 'Booking Sekarang' : 'Tanya Jadwal'}</span>
+                                   <span class="en">${isReady ? 'Book Now' : 'Check Schedule'}</span>
+                                </a>
+                            </div>
+                            ${isReady ? `<small class="mt-2 d-block fw-bold" style="color: var(--dark-charcoal)">${g.ready} <span class="id">unit standby</span><span class="en">units on standby</span></small>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+    loadCatalog();
+</script>
+</body>
+</html>

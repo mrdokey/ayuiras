@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=[ID_GOOGLE_ADS]"></script> 
+    <script> 
+      window.dataLayer = window.dataLayer || []; 
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date()); 
+      gtag('config', '[ID_GOOGLE_ADS]'); 
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Premium Scooter Rental in Bali | Ayu Iras Rent</title>
+    <meta name="description" content="Explore Bali the easy and fun way! Rent top-condition, premium automatic scooters at the best prices in Seminyak and Kuta, Bali with Ayu Iras Rent.">
+    <link rel="icon" type="image/png" href="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB">
+    
+    <meta name="theme-color" content="#1E1E1E">
+
+    <meta property="og:title" content="Ayu Iras Rent | Premium Scooter Rental in Bali">
+    <meta property="og:description" content="Explore Bali the easy and fun way! Rent top-condition, premium automatic scooters at the best prices. Book your ride today!">
+    <meta property="og:image" content="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB">
+    <meta property="og:url" content="https://www.ayuirasrentalbali.com"> 
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-red: #E53935;
+            --dark-charcoal: #1E1E1E;
+            --gold-accent: #C5A059;
+            --text-dark: #121212;
+            --bg-page: #FAF9F6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--bg-page); 
+            color: var(--text-dark); 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        /* MULTI-LANGUAGE */
+        body.lang-id .en { display: none !important; }
+        body.lang-en .id { display: none !important; }
+
+        /* NAVBAR TOP */
+        nav { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 800; font-size: 1.1rem; color: var(--dark-charcoal); letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
+        .logo img { height: 38px; }
+        .logo span { color: var(--dark-charcoal); }
+        .logo b { color: var(--primary-red); }
+        
+        /* UPDATED LANG BUTTON */
+        .lang-btn { 
+            background: var(--dark-charcoal); 
+            color: var(--gold-accent); 
+            border: 2px solid var(--gold-accent); 
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            font-size: 0.75rem; 
+            font-weight: 800; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        .lang-btn:hover {
+            background: var(--primary-red);
+            color: #fff;
+            border-color: var(--primary-red);
+        }
+
+        /* HERO */
+        .hero { 
+            height: 320px; 
+            background: linear-gradient(rgba(30, 30, 30, 0.5), rgba(0, 0, 0, 0.75)), url('https://images.unsplash.com/photo-1591154101811-aa97917c34db?q=80&w=1600&auto=format&fit=crop'); 
+            background-size: cover; 
+            background-position: center; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            color: #fff; 
+            text-align: center; 
+            padding: 20px; 
+        }
+
+        .hero h2 { font-size: 2.3rem; font-weight: 800; text-shadow: 2px 2px 6px rgba(0,0,0,0.6); }
+        .hero p { font-size: 1rem; color: var(--gold-accent); font-weight: 600; margin-top: 5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+
+        .container { padding: 40px 15px; max-width: 1000px; margin: auto; }
+        .section-title { text-align: center; margin-bottom: 30px; }
+        .section-title h3 { font-size: 1.7rem; font-weight: 800; color: var(--dark-charcoal); }
+        .underline { width: 60px; height: 5px; background: var(--primary-red); margin: 10px auto; border-radius: 2px; }
+
+        /* FLEET GRID (DYNAMIC) */
+        .fleet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .fleet-card { background: #fff; border-radius: 30px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06); position: relative; border: 1px solid #eee; transition: 0.3s; }
+        .fleet-card:hover { transform: translateY(-5px); border-color: var(--primary-red); }
+        
+        .img-wrapper { position: relative; height: 320px; overflow: hidden; background: #f0f0f0; }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .unit-info-overlay { 
+            position: absolute; bottom: 0; left: 0; width: 100%; 
+            background: linear-gradient(transparent, rgba(30, 30, 30, 0.95)); 
+            color: white; padding: 40px 20px 20px; text-align: left;
+        }
+        .unit-brand { color: var(--gold-accent); font-size: 0.75rem; text-transform: uppercase; font-weight: 800; margin-bottom: 5px; display: block; }
+        .unit-name { font-size: 1.25rem; font-weight: 800; margin-bottom: 2px; display: block; }
+        .unit-price { font-size: 0.9rem; font-weight: 600; color: #fff; opacity: 0.9; margin-bottom: 12px; display: block; }
+        
+        .btn-booking-slide { background: var(--primary-red); color: #fff; padding: 8px 20px; border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 0.8rem; display: inline-block; transition: 0.3s; }
+        .btn-booking-slide:hover { background: #fff; color: var(--primary-red); }
+
+        /* LAYANAN */
+        .layanan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+        .layanan-card { background: #fff; padding: 35px 20px; border-radius: 25px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.04); border: 1px solid #f1f1f1; }
+        .layanan-card i { font-size: 2.5rem; color: var(--primary-red); margin-bottom: 15px; }
+
+        /* MAPS */
+        .map-wrapper { width: 100%; height: 380px; border-radius: 30px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #eee; margin-top: 20px; }
+        .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+
+        /* FLOATING NAV MOBILE */
+        .floating-nav { 
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            display: flex; justify-content: space-around; 
+            padding: 12px 5px calc(15px + env(safe-area-inset-bottom)); 
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.08); z-index: 9999; 
+            border-radius: 25px 25px 0 0; 
+        }
+        .nav-item { text-align: center; color: var(--dark-charcoal); text-decoration: none; font-size: 0.62rem; font-weight: 700; flex: 1; min-width: 0; cursor: pointer; }
+        .nav-item i { display: block; font-size: 1.3rem; color: var(--dark-charcoal); margin-bottom: 5px; }
+        .nav-item:hover i { color: var(--primary-red); }
+
+        footer { text-align: center; padding: 40px 20px 140px; color: #ccc; font-size: 0.8rem; background: var(--dark-charcoal); }
+        footer .address { color: var(--gold-accent); font-style: italic; font-size: 0.75rem; margin-top: 10px; }
+
+        #armada, #layanan, #lokasi { scroll-margin-top: 100px; }
+
+        /* LOADING SPINNER */
+        #loadingFleet { text-align: center; padding: 40px; width: 100%; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-red); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 10px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="lang-en">
+
+    <nav>
+        <div class="logo">
+            <img src="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB" alt="Logo">
+            <span>Ayu Iras <b>Rent</b></span>
+        </div>
+        <button class="lang-btn" onclick="toggleLang()">EN | ID</button>
+    </nav>
+
+    <section class="hero" id="home">
+        <div data-aos="zoom-in">
+            <h2>Ayu Iras Rent</h2>
+            <p class="id">Eksplorasi Bali Lebih Mudah & Seru</p>
+            <p class="en">Explore Bali Easier & More Fun</p>
+        </div>
+    </section>
+
+    <div class="container">
+        
+        <div id="armada" class="section-title" data-aos="fade-up">
+            <h3 class="id">Pilihan Armada Terbaik</h3>
+            <h3 class="en">Our Best Fleet</h3>
+            <div class="underline"></div>
+        </div>
+
+        <div id="fleetContainer" class="fleet-grid">
+            <div id="loadingFleet">
+                <div class="spinner"></div>
+                <p class="id">Memuat armada...</p>
+                <p class="en">Loading fleet...</p>
+            </div>
+        </div>
+
+        <div id="layanan" class="section-title" data-aos="fade-up" style="margin-top: 60px;">
+            <h3 class="id">Layanan Unggulan</h3>
+            <h3 class="en">Our Services</h3>
+            <div class="underline"></div>
+        </div>
+
+        <div class="layanan-grid">
+            <div class="layanan-card" data-aos="zoom-in">
+                <i class="fas fa-shield-alt"></i>
+                <h4 class="id">Kondisi Prima</h4><h4 class="en">Prime Condition</h4>
+                <p class="small text-muted id">Unit selalu diservis berkala.</p>
+                <p class="small text-muted en">Units are regularly serviced.</p>
+            </div>
+            <div class="layanan-card" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-motorcycle"></i>
+                <h4 class="id">Sewa Motor</h4><h4 class="en">Bike Rental</h4>
+                <p class="small text-muted id">Berbagai pilihan motor matic pribadi.</p>
+                <p class="small text-muted en">Various types of automatic bikes.</p>
+            </div>
+        </div>
+
+        <div id="lokasi" class="section-title" data-aos="fade-up" style="margin-top: 60px;">
+            <h3 class="id">Lokasi Kami</h3>
+            <h3 class="en">Our Location</h3>
+            <div class="underline"></div>
+        </div>
+
+        <div class="map-wrapper" data-aos="zoom-in">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.6595469352296!2d115.1868426!3d-8.6286454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd239ed92e9a7e7%3A0xacfb88ba97c12731!2sAIR%20(Ayu%20Iras%20Rental)!5e0!3m2!1sid!2sid!4v1783174710378!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Ayu Iras Rent | <span class="id">Didukung oleh</span><span class="en">Powered by</span> MRD Digital Solution</p>
+        <p class="address">AIR (Ayu Iras Rental), Bali, Indonesia</p>
+    </footer>
+
+    <div class="floating-nav">
+        <a onclick="slowScroll('#home')" class="nav-item">
+            <i class="fas fa-home"></i> <span>Home</span>
+        </a>
+        <a onclick="slowScroll('#layanan')" class="nav-item">
+            <i class="fas fa-hand-holding-heart"></i> <span class="id">Layanan</span><span class="en">Services</span>
+        </a>
+        <a href="showunit.html" class="nav-item">
+            <i class="fas fa-list-ul"></i> <span class="id">Armada</span><span class="en">Fleet</span>
+        </a>
+        <a href="cariunit.html" class="nav-item">
+            <i class="fas fa-calendar-check"></i> <span class="id">Cek Unit</span><span class="en">Check</span>
+        </a>
+        <a href="https://wa.me/6285879293700" target="_blank" class="nav-item">
+            <i class="fab fa-whatsapp"></i> <span>WhatsApp</span>
+        </a>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        const API_URL = "https://script.google.com/macros/s/AKfycbxzNwUJZ7Kd7JY138ea2oKSrtdjIrFeZ1xyM58CHWAGFtL05m7IbC_9R-okhrhXS53b/exec";
+        const adminWA = "6285879293700";
+        const namaKlien = "Ayu Iras Rent";
+
+        function toggleLang() {
+            document.body.classList.toggle('lang-en');
+            document.body.classList.toggle('lang-id');
+            
+            const btn = document.querySelector('.lang-btn');
+            if(document.body.classList.contains('lang-en')) {
+                btn.innerHTML = "EN | ID";
+            } else {
+                btn.innerHTML = "ID | EN";
+            }
+        }
+
+        function slowScroll(target) {
+            const el = document.querySelector(target);
+            if(el) window.scrollTo({ top: el.offsetTop - 90, behavior: 'smooth' });
+        }
+
+        // AUTO IMAGE FUNCTION (Resilient spaceless matching to dynamic table)
+        function getAutoImage(type) {
+            if (!type) return "https://placehold.co/600x400/1E1E1E/ffffff?text=Unit+Ready";
+            const t = type.toLowerCase().replace(/\s+/g, '');
+            if (t.includes("nmaxturbo")) return "https://i.ibb.co.com/LdfZG3jF/IMG-20260512-WA0041.jpg";
+            if (t.includes("nmaxneo")) return "https://i.ibb.co.com/Jj3MtHm7/IMG-20260519-WA0010.jpg";
+            if (t.includes("nmax")) return "https://i.ibb.co.com/6JpHW94T/IMG-20260512-WA0053.jpg";
+            if (t.includes("adv")) return "https://i.ibb.co.com/b5vVrKvV/IMG-20260512-WA0046.jpg";
+            if (t.includes("gear")) return "https://i.ibb.co.com/jdgtRkQ/IMG-20260512-WA0040.jpg";
+            if (t.includes("fino")) return "https://i.ibb.co.com/N6ZgKpdr/IMG-20260512-WA0055.jpg";
+            if (t.includes("genio")) return "https://i.ibb.co.com/5W7MvdCG/IMG-20260512-WA0043.jpg";
+            if (t.includes("lexi")) return "https://i.ibb.co.com/nMLLJ26m/IMG-20260512-WA0048.jpg";
+            if (t.includes("mio")) return "https://i.ibb.co.com/84d2sdLB/IMG-20260512-WA0054.jpg";
+            if (t.includes("niu")) return "https://i.ibb.co.com/JRgZ2VWr/IMG-20260512-WA0059.jpg";
+            if (t.includes("pcx")) return "https://i.ibb.co.com/5gbZBQNN/IMG-20260512-WA0056.jpg";
+            if (t.includes("scoopy2023")) return "https://i.ibb.co.com/1fyD1Rqm/IMG-20260512-WA0042.jpg";
+            if (t.includes("scoopy2019")) return "https://i.ibb.co.com/FLyNk2kr/IMG-20260512-WA0057.jpg";
+            if (t.includes("xmax")) return "https://i.ibb.co.com/6RWT05qb/IMG-20260512-WA0039.jpg";
+            if (t.includes("vespa")) return "https://i.ibb.co.com/FbqGSSzC/IMG-20260512-WA0051.jpg";
+            if (t.includes("stylo")) return "https://i.ibb.co.com/6RG8WkQW/IMG-20260512-WA0049.jpg";
+            if (t.includes("variokarbu")) return "https://i.ibb.co.com/NgWRXN56/IMG-20260512-WA0050.jpg";
+            if (t.includes("varioled")) return "https://i.ibb.co.com/23YkZ6Df/IMG-20260512-WA0045.jpg";
+            if (t.includes("variofi")) return "https://i.ibb.co.com/RpRrQpBL/IMG-20260512-WA0058.jpg";
+            if (t.includes("vario")) return "https://i.ibb.co.com/23YkZ6Df/IMG-20260512-WA0045.jpg";
+            if (t.includes("fazzio")) return "https://i.ibb.co.com/rRzhpbkW/IMG-20260512-WA0047.jpg";
+            if (t.includes("filano")) return "https://i.ibb.co.com/6RstwhrV/IMG-20260512-WA0062.jpg";
+            if (t.includes("spacy")) return "https://i.ibb.co.com/B5VnNpq7/4b330d335cb1496c9556338e5429bac5.jpg";
+            if (t.includes("beat")) return "https://i.ibb.co.com/6cG5CgTC/Honda-Beat-Sporty-Deluxe-Black-1.png";
+            return "https://placehold.co/600x400/1E1E1E/ffffff?text=Unit+Ready";
+        }
+
+        // LOAD DATA & GROUP BY TYPE
+        async function loadFleet() {
+            try {
+                const res = await fetch(API_URL);
+                const data = await res.json();
+                renderFleet(data.items);
+            } catch (e) {
+                console.error(e);
+                document.getElementById('loadingFleet').innerHTML = "<p class='text-danger id'>Gagal memuat data armada.</p><p class='text-danger en'>Failed to load fleet data.</p>";
+            }
+        }
+
+        function renderFleet(items) {
+            const container = document.getElementById('fleetContainer');
+            container.innerHTML = "";
+            let groups = {};
+
+            items.forEach(m => {
+                if (!m || !m[1] || m[1].toString().trim() === "") return;
+
+                const plate = m[0] ? m[0].toString().trim() : "";
+                // KECUALIKAN UNIT REKAN (AWALAN "AIR")
+                if (plate.toUpperCase().startsWith("AIR")) return;
+
+                const type = m[1];
+                const brand = m[2];
+                const price = m[3];
+                const status = (m[5] || "Available").toLowerCase();
+
+                if (status === "bengkel") return;
+
+                if (!groups[type]) {
+                    groups[type] = { brand: brand, type: type, price: price, image: getAutoImage(type) };
+                }
+            });
+
+            for (const key in groups) {
+                const g = groups[key];
+                container.innerHTML += `
+                    <div class="fleet-card" data-aos="fade-up">
+                        <div class="img-wrapper">
+                            <img src="${g.image}" alt="${g.type}" loading="lazy">
+                            <div class="unit-info-overlay">
+                                <span class="unit-brand">${g.brand}</span>
+                                <span class="unit-name">${g.type}</span>
+                                <span class="unit-price">Rp ${Number(g.price).toLocaleString('id-ID')} / day</span>
+                                <a href="https://wa.me/${adminWA}?text=Hello ${namaKlien}, I want to rent ${g.brand} ${g.type}" class="btn-booking-slide">
+                                    <span class="id" style="display:none;">Sewa Sekarang</span><span class="en">Rent Now</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        loadFleet();
+    </script>
+</body>
+</html>
