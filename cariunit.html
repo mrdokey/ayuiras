@@ -14,14 +14,14 @@
     
     <title>Check Availability | Ayu Iras Rent</title>
     
-    <meta name="description" content="Check real-time scooter availability for your vacation dates in Bali. Find and book your perfect ride instantly with Ayu Iras Rent.">
+    <meta name="description" content="Check real-time scooter availability for your vacation dates in Bali. Find and book your perfect moped instantly with Ayu Iras Rent.">
     <meta property="og:title" content="Check Availability | Ayu Iras Rent">
     <meta property="og:description" content="Check real-time scooter availability for your vacation dates in Bali. Find and book your perfect ride instantly!">
-    <meta property="og:image" content="https://lh3.googleusercontent.com/d/13YX47CjL9ztVimpu9673onHUlQIDLwfB">
+    <meta property="og:image" content="https://drive.google.com/thumbnail?id=13YX47CjL9ztVimpu9673onHUlQIDLwfB&sz=w500">
     <meta property="og:url" content="https://www.ayuirasrentalbali.com/cariunit.html">
     <meta property="og:type" content="website">
 
-    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/13YX47CjL9ztVimpu9673onHUlQIDLwfB">
+    <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=13YX47CjL9ztVimpu9673onHUlQIDLwfB&sz=w500">
     
     <meta name="theme-color" content="#1E1E1E">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -119,7 +119,7 @@
 
 <nav>
     <a href="index.html" class="logo">
-        <img src="https://lh3.googleusercontent.com/d/13YX47CjL9ztVimpu9673onHUlQIDLwfB" alt="Logo">
+        <img src="https://drive.google.com/thumbnail?id=13YX47CjL9ztVimpu9673onHUlQIDLwfB&sz=w500" alt="Logo">
         <span>Ayu Iras <b>Rent</b></span>
     </a>
     <button class="lang-btn" onclick="toggleLang()">EN | ID</button>
@@ -235,34 +235,11 @@
         }
     }
 
-    // UNIVERSAL FIELD EXTRACTOR (Resilient to dynamic Sheets API formats)
-    function extractFields(m) {
-        if (!m) return null;
-        let plate = "", type = "", brand = "", price = 0, status = "Available";
-
-        if (Array.isArray(m)) {
-            plate = m[0] ? m[0].toString().trim() : "";
-            type = m[1] ? m[1].toString().trim() : "";
-            brand = m[2] ? m[2].toString().trim() : "";
-            price = m[3] ? Number(m[3]) : 0;
-            status = m[5] ? m[5].toString().trim() : "Available";
-        } else if (typeof m === 'object') {
-            plate = (m['no motor'] || m['no_motor'] || m['nomotor'] || m['Plate'] || m['plate'] || "").toString().trim();
-            type = (m['tipe motor'] || m['tipe_motor'] || m['tipemotor'] || m['Type'] || m['type'] || "").toString().trim();
-            brand = (m['brand'] || m['Brand'] || "").toString().trim();
-            let rawPrice = m['harga'] || m['Harga'] || m['price'] || m['Price'] || 0;
-            price = Number(rawPrice);
-            status = (m['status'] || m['Status'] || "Available").toString().trim();
-        }
-        return { plate, type, brand, price, status };
-    }
-
     async function fetchData() {
         try {
             const response = await fetch(API_URL);
             const data = await response.json();
             
-            // Flexible database parsing
             if (data && Array.isArray(data)) {
                 motors = data;
             } else if (data && data.items && Array.isArray(data.items)) {
@@ -286,22 +263,16 @@
         const sReq = new Date(startReq);
         const eReq = new Date(endReq);
         return bookings.some(b => {
-            let b_no_motor = "";
-            let b_start = "";
-            let b_end = "";
+            if (!b || !b.no_motor) return false;
+            if (b.no_motor !== plate) return false;
 
-            if (typeof b === 'object') {
-                b_no_motor = b.no_motor || b['no motor'] || b['no_motor'] || b.noMotor || "";
-                b_start = b.start || b['tgl ambil'] || b['tgl_ambil'] || b.start_date || "";
-                b_end = b.end || b['tgl kembali'] || b['tgl_kembali'] || b.end_date || "";
-            } else if (Array.isArray(b)) {
-                b_no_motor = b[0];
-                b_start = b[1];
-                b_end = b[2];
-            }
+            const bStart = new Date(b.start);
+            const bEnd = new Date(b.end);
 
-            if (b_no_motor !== plate) return false;
-            return (sReq < new Date(b_end) && eReq > new Date(b_start));
+            // Jika format tanggal di database rusak atau kosong, abaikan pencocokan
+            if (isNaN(bStart.getTime()) || isNaN(bEnd.getTime())) return false;
+
+            return (sReq < bEnd && eReq > bStart);
         });
     }
 
@@ -343,18 +314,19 @@
         let totalAvailable = 0;
 
         motors.forEach(m => {
-            const dataObj = extractFields(m);
-            if (!dataObj || !dataObj.plate) return;
+            if (!m || !Array.isArray(m) || m.length < 2) return;
 
-            const plate = dataObj.plate;
-            const type = dataObj.type;
-            const brand = dataObj.brand;
-            const price = dataObj.price;
-            const status = dataObj.status;
+            const plate = m[0] ? m[0].toString().trim() : "";
             
             // KECUALIKAN UNIT REKAN (AWALAN "AIR")
             if (plate.toUpperCase().startsWith("AIR")) return;
-            if (status.toLowerCase() === "bengkel") return;
+
+            const type = m[1] ? m[1].toString().trim() : "";
+            const brand = m[2] ? m[2].toString().trim() : "";
+            const price = Number(m[3]) || 0;
+            const status = m[5] ? m[5].toString().trim() : "Available";
+
+            if (status.toLowerCase() === "bengkel" || !type) return;
             if (isOccupied(plate, sDate, eDate)) return;
 
             totalAvailable++;
