@@ -223,7 +223,7 @@
             }
         };
 
-        // 🌟 SAFETY TRICK: Membaca memori secara aman untuk kebal dari pemblokiran Mode Incognito
+        // SAFETY TRICK: Membaca memori secara aman untuk kebal dari pemblokiran Mode Incognito
         let currentLang = 'id';
         try {
             currentLang = localStorage.getItem('lang') || 'id';
@@ -260,7 +260,7 @@
         function setLanguage(lang) {
             currentLang = lang;
             
-            // 🌟 SAFETY TRICK: Menyimpan memori secara aman untuk kebal dari pemblokiran Mode Incognito
+            // SAFETY TRICK: Menyimpan memori secara aman untuk kebal dari pemblokiran Mode Incognito
             try {
                 localStorage.setItem('lang', lang);
             } catch (e) {}
@@ -411,7 +411,7 @@
                 durasiDisplay.innerText = `0 ${TRANSLATIONS[currentLang]['hari']}`;
             }
 
-            // 🌟 SINKRONISASI BAHASA: Mengubah teks loading sesuai kamus bahasa yang aktif (ID / EN)
+            // SINKRONISASI BAHASA: Mengubah teks loading sesuai kamus bahasa yang aktif (ID / EN)
             statusMessage.innerHTML = `<div class="flex items-center justify-center space-x-2"><div class="w-4 h-4 border-2 border-blue-700 border-t-transparent rounded-full animate-spin"></div><span>${TRANSLATIONS[currentLang]['loading']}</span></div>`;
             statusMessage.classList.remove('hidden');
             fleetContainer.classList.add('hidden');
@@ -457,6 +457,7 @@
                         }
                     });
 
+                    // Ubah objek grouping menjadi array
                     const groupedUnitsList = Object.values(grouped);
 
                     groupedUnitsList.forEach(m => {
@@ -481,7 +482,10 @@
                         if (list.length > 0) {
                             let cardsHtml = "";
                             list.forEach(m => {
+                                // TAMPILKAN GAMBAR ASLI PWA JIKA ADA, FALLBACK KE GETAUTOIMAGE
                                 const fixFotoUnit = m.foto_unit && m.foto_unit.trim() !== "" ? m.foto_unit : getAutoImage(m.nama_unit);
+
+                                // LOGIKA SAKTI: HANYA TAMPILKAN PLAT JIKA TIDAK DIAWALI DENGAN "AIR"
                                 const isAirPlate = m.no_polisi && m.no_polisi.toUpperCase().trim().startsWith("AIR");
 
                                 cardsHtml += `
@@ -491,28 +495,29 @@
                                                 <img src="${fixFotoUnit}" class="w-full h-full object-cover">
                                             </div>
                                             <div class="truncate flex-1">
-                                                \${isAirPlate ? '' : \`<h4 class="text-[9px] font-black text-blue-700 unsigned-plate uppercase tracking-tighter leading-none mb-1">\${m.no_polisi}</h4>\`}
-                                                <h2 class="text-xs font-black text-slate-800 truncate mb-1">\${m.nama_unit}</h2>
-                                                <p class="text-[10px] font-bold text-slate-500 leading-none">Rp \${Number(m.harga_per_hari).toLocaleString('id-ID')}/<span data-i18n="hari">\${TRANSLATIONS[currentLang]['hari']}</span></p>
+                                                ${isAirPlate ? '' : `<h4 class="text-[9px] font-black text-blue-700 unsigned-plate uppercase tracking-tighter leading-none mb-1">${m.no_polisi}</h4>`}
+                                                <h2 class="text-xs font-black text-slate-800 truncate mb-1">${m.nama_unit}</h2>
+                                                <p class="text-[10px] font-bold text-slate-500 leading-none">Rp ${Number(m.harga_per_hari).toLocaleString('id-ID')}/${TRANSLATIONS[currentLang]['hari']}</p>
                                             </div>
                                         </div>
                                         
                                         <div class="flex justify-between items-center pt-2 border-t border-slate-50">
                                             <span class="text-[8px] font-black uppercase text-green-600 bg-green-50 px-2 py-0.5 rounded-md">
-                                                \${currentLang === 'id' ? \`Tersedia: \${m.count} Unit\` : \`\${m.count} Bikes Ready\`}
+                                                ${currentLang === 'id' ? `Tersedia: ${m.count} Unit` : `${m.count} Bikes Ready`}
                                             </span>
-                                            <button type="button" onclick="openBookingModal('\${m.id}', '\${m.nama_unit}', '\${m.harga_per_hari}', '\${m.no_polisi}')" class="px-4 py-2 bg-blue-600 text-white text-[9px] font-black rounded-xl uppercase tracking-wider active:scale-90 transition-transform shadow-md">
-                                                ⚡ \${TRANSLATIONS[currentLang]['sewa_btn']}
+                                            <button type="button" onclick="openBookingModal('${m.id}', '${m.nama_unit}', '${m.harga_per_hari}', '${m.no_polisi}')" class="px-4 py-2 bg-blue-600 text-white text-[9px] font-black rounded-xl uppercase tracking-wider active:scale-90 transition-transform shadow-md">
+                                                ⚡ ${TRANSLATIONS[currentLang]['sewa_btn']}
                                             </button>
                                         </div>
                                     </div>
                                 `;
                             });
 
+                            // RESPONSIVE GRID LAYOUT: Menggunakan md:grid-cols-2 lg:grid-cols-3 agar melebar di PC/Tablet
                             fleetContainer.innerHTML += `
                                 <div class="space-y-2.5">
-                                    <p class="text-[8px] font-black text-blue-500 uppercase tracking-widest ml-2">\${catName}</p>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">\${cardsHtml}</div>
+                                    <p class="text-[8px] font-black text-blue-500 uppercase tracking-widest ml-2">${catName}</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${cardsHtml}</div>
                                 </div>
                             `;
                         }
@@ -604,6 +609,5 @@
             });
         }
     </script>
-    
 </body>
 </html>
