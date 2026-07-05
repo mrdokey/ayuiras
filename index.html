@@ -480,9 +480,13 @@
                         if (list.length > 0) {
                             let cardsHtml = "";
                             list.forEach(m => {
+                                // 🌟 1. SAKELAR HARGA PEMBATAS: Abaikan/Sembunyikan motor partner seharga jutaan!
+                                const priceNum = parseFloat(m.harga_per_hari || 0);
+                                if (priceNum >= 1000000) return; 
+
                                 const fixFotoUnit = m.foto_unit && m.foto_unit.trim() !== "" ? m.foto_unit : getAutoImage(m.nama_unit);
                                 
-                                // 🌟 ULTRA-ROBUST "AIR" SENSOR: Membuang semua spasi/tanda strip untuk mendeteksi kata "AIR" di plat nomor secara akurat
+                                // ULTRA-ROBUST "AIR" SENSOR
                                 const isAirPlate = m.no_polisi && m.no_polisi.toUpperCase().replace(/[\s-]/g, '').startsWith("AIR");
 
                                 cardsHtml += `
@@ -511,12 +515,14 @@
                             });
 
                             // RESPONSIVE GRID LAYOUT: Menggunakan md:grid-cols-2 lg:grid-cols-3 agar melebar di PC/Tablet
-                            fleetContainer.innerHTML += `
-                                <div class="space-y-2.5">
-                                    <p class="text-[8px] font-black text-blue-500 uppercase tracking-widest ml-2">${catName}</p>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${cardsHtml}</div>
-                                </div>
-                            `;
+                            if (cardsHtml !== "") {
+                                fleetContainer.innerHTML += `
+                                    <div class="space-y-2.5">
+                                        <p class="text-[8px] font-black text-blue-500 uppercase tracking-widest ml-2">${catName}</p>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${cardsHtml}</div>
+                                    </div>
+                                `;
+                            }
                         }
                     }
 
@@ -531,6 +537,7 @@
         }
 
         // --- SISTEM MODAL FORM BOOKING ---
+        // (Sama seperti sebelumnya, aman dari kompresi)
         function openBookingModal(id, name, price, plat) {
             if (!t1.value || !t2.value) {
                 alert(TRANSLATIONS[currentLang]['alert_date']);
@@ -612,7 +619,8 @@
                                            `💵 *ESTIMASI TOTAL:* Rp ${Number(totalVal).toLocaleString('id-ID')}\n\n` +
                                            `Saya siap mengirimkan dokumen KTP/Passport untuk proses verifikasi. Terima kasih!`;
 
-                    window.open(`https://wa.me/${ownerWhatsAppNumber}?text=${encodeURIComponent(structuredText)}`, '_blank');
+                    // Buka langsung ke nomor WA Kak Ayu Iras (+62 858-7929-3700)
+                    window.open(`https://wa.me/6285879293700?text=${encodeURIComponent(structuredText)}`, '_blank');
                     
                     document.getElementById('bookingForm').reset();
                 } else {
