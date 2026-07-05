@@ -162,6 +162,7 @@
         const CLIENT_ID = "ayuiras";
         const API_URL = "https://ams.mrdsolution.my.id/api/public";
 
+        // KAMUS BAHASA DINAMIS (ID | EN)
         const TRANSLATIONS = {
             id: {
                 slogan: "Sewa Motor & Mobil Bali Terbaik",
@@ -240,7 +241,7 @@
         let defaultSliders = ["https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB"];
         let activeSliders = [];
         let currentSliderIndex = 0;
-        let ownerWhatsAppNumber = "6285879293700"; 
+        let ownerWhatsAppNumber = "6285879293700"; // 🌟 NOMOR WA UTAMA KAK AYU IRAS
         let customWaText = "";
 
         // ON-LOAD INITIALIZER
@@ -260,7 +261,6 @@
         function setLanguage(lang) {
             currentLang = lang;
             
-            // SAFETY TRICK: Menyimpan memori secara aman untuk kebal dari pemblokiran Mode Incognito
             try {
                 localStorage.setItem('lang', lang);
             } catch (e) {}
@@ -411,7 +411,6 @@
                 durasiDisplay.innerText = `0 ${TRANSLATIONS[currentLang]['hari']}`;
             }
 
-            // SINKRONISASI BAHASA: Mengubah teks loading sesuai kamus bahasa yang aktif (ID / EN)
             statusMessage.innerHTML = `<div class="flex items-center justify-center space-x-2"><div class="w-4 h-4 border-2 border-blue-700 border-t-transparent rounded-full animate-spin"></div><span>${TRANSLATIONS[currentLang]['loading']}</span></div>`;
             statusMessage.classList.remove('hidden');
             fleetContainer.classList.add('hidden');
@@ -457,7 +456,6 @@
                         }
                     });
 
-                    // Ubah objek grouping menjadi array
                     const groupedUnitsList = Object.values(grouped);
 
                     groupedUnitsList.forEach(m => {
@@ -482,11 +480,10 @@
                         if (list.length > 0) {
                             let cardsHtml = "";
                             list.forEach(m => {
-                                // TAMPILKAN GAMBAR ASLI PWA JIKA ADA, FALLBACK KE GETAUTOIMAGE
                                 const fixFotoUnit = m.foto_unit && m.foto_unit.trim() !== "" ? m.foto_unit : getAutoImage(m.nama_unit);
-
-                                // LOGIKA SAKTI: HANYA TAMPILKAN PLAT JIKA TIDAK DIAWALI DENGAN "AIR"
-                                const isAirPlate = m.no_polisi && m.no_polisi.toUpperCase().trim().startsWith("AIR");
+                                
+                                // 🌟 ULTRA-ROBUST "AIR" SENSOR: Membuang semua spasi/tanda strip untuk mendeteksi kata "AIR" di plat nomor secara akurat
+                                const isAirPlate = m.no_polisi && m.no_polisi.toUpperCase().replace(/[\s-]/g, '').startsWith("AIR");
 
                                 cardsHtml += `
                                     <div class="bg-white p-4 rounded-3xl shadow-sm border border-slate-200/80 flex flex-col justify-between h-full space-y-4">
@@ -549,7 +546,7 @@
 
             const days = parseInt(durasiDisplay.innerText) || 1;
             
-            const isAirPlate = plat && plat.toUpperCase().trim().startsWith("AIR");
+            const isAirPlate = plat && plat.toUpperCase().replace(/[\s-]/g, '').startsWith("AIR");
             document.getElementById('summary_motor').innerText = isAirPlate ? name.toUpperCase() : `${name.toUpperCase()} (${plat})`;
             
             document.getElementById('summary_duration').innerText = days;
@@ -563,6 +560,7 @@
             document.getElementById('bookingModal').classList.add('hidden');
         }
 
+        // --- SUBMIT BOOKING (SAVES TO DB & TRIGGERS DIRECT WHATSAPP CHAT REDIRECTION) ---
         function submitBooking(event) {
             event.preventDefault();
             const btn = document.getElementById('btnSubmit');
@@ -572,6 +570,8 @@
             const startVal = t1.value.replace('T', ' ');
             const endVal = t2.value.replace('T', ' ');
             const days = parseInt(durasiDisplay.innerText) || 1;
+            const priceVal = parseInt(document.getElementById('book_unit_price').value);
+            const totalVal = priceVal * days;
 
             const payload = {
                 name: document.getElementById('guest_name').value,
@@ -582,9 +582,10 @@
                 start_date: startVal,
                 end_date: endVal,
                 duration: days,
-                total: parseInt(document.getElementById('book_unit_price').value) * days
+                total: totalVal
             };
 
+            // 1. Tembak data pesanan ke VPS Node.js (untuk dikirim ke bot WA Kak Ayu)
             fetch(`${API_URL}/booking-request/${CLIENT_ID}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -594,9 +595,25 @@
             .then(res => {
                 btn.disabled = false;
                 btn.innerText = TRANSLATIONS[currentLang]['submit_btn'];
+                
                 if (res.success) {
                     alert(TRANSLATIONS[currentLang]['success_msg']);
                     closeBookingModal();
+                    
+                    // 🌟 2. DOUBLE ACTION JALUR PINTAS: Otomatis buka chat WA langsung ke Kak Ayu Iras
+                    const cleanGuestWa = payload.wa.replace(/[^0-9]/g, '');
+                    const structuredText = `Halo Ayu Iras Rental Bali, saya ingin menyewa motor melalui website:\n\n` +
+                                           `👤 *NAMA:* ${payload.name.toUpperCase()}\n` +
+                                           `📱 *WA GUEST:* ${cleanGuestWa}\n` +
+                                           `🏍️ *UNIT MOTOR:* ${payload.unit_name.toUpperCase()}\n` +
+                                           `📅 *MULAI SEWA:* ${startVal}\n` +
+                                           `🏁 *PENGEMBALIAN:* ${endVal}\n` +
+                                           `⏱️ *DURASI:* ${days} Hari\n` +
+                                           `💵 *ESTIMASI TOTAL:* Rp ${Number(totalVal).toLocaleString('id-ID')}\n\n` +
+                                           `Saya siap mengirimkan dokumen KTP/Passport untuk proses verifikasi. Terima kasih!`;
+
+                    window.open(`https://wa.me/${ownerWhatsAppNumber}?text=${encodeURIComponent(structuredText)}`, '_blank');
+                    
                     document.getElementById('bookingForm').reset();
                 } else {
                     alert(TRANSLATIONS[currentLang]['error_msg'] + res.message);
@@ -608,7 +625,6 @@
                 alert(TRANSLATIONS[currentLang]['conn_error']);
             });
         }
-        
     </script>
 </body>
 </html>
