@@ -19,7 +19,7 @@
         <div class="absolute inset-0 bg-black/50 z-0"></div>
         
         <!-- TOMBOL TOGGLE BAHASA ID | EN DI POJOK KANAN ATAS -->
-        <div onclick="toggleLanguage()" class="absolute top-6 right-6 bg-white/20 backdrop-blur border border-white/25 px-3 py-1.5 rounded-full text-[10px] font-black text-white flex items-center space-x-1 cursor-pointer active:scale-95 transition-transform z-30 uppercase tracking-widest">
+        <div onclick="toggleLanguage()" class="absolute top-6 right-6 bg-white/20 backdrop-blur border border-white/25 px-3 py-1.5 rounded-full text-[10px] font-black text-white flex items-center space-x-1 cursor-pointer active:scale-95 transition-transform z-30 registrar-btn uppercase tracking-widest">
             🌐 <span id="langBtnText">EN | ID</span>
         </div>
 
@@ -33,7 +33,7 @@
         </div>
     </header>
 
-    <!-- CONTAINER UTAMA -->
+    <!-- CONTAINER UTAMA (RESPONSIVE MELEBAR DI DESKTOP/TABLET) -->
     <main class="p-4 max-w-5xl mx-auto space-y-6 -mt-10 relative z-20">
 
         <!-- TOMBOL PEMICU CEK TANGGAL EXPANDABLE -->
@@ -43,7 +43,7 @@
                 <span data-i18n="check_title">Cek Ketersediaan Tanggal 📅</span>
             </button>
             
-            <!-- Wadah Input Tanggal -->
+            <!-- Wadah Input Tanggal (Terlipat Secara Bawaan) -->
             <div id="datePickerContainer" class="hidden bg-white p-6 rounded-[30px] shadow-sm border border-slate-200/50 space-y-4 transition-all duration-300">
                 <div class="grid grid-cols-2 gap-3">
                     <div>
@@ -69,7 +69,7 @@
                 Menyisir garasi Ayu Iras...
             </div>
 
-            <!-- Wadah Pengelompokan Tipe Motor Dinamis -->
+            <!-- Wadah Pengelompokan Tipe Motor Dinamis (Melebar Grid di Desktop) -->
             <div id="fleetContainer" class="space-y-6 hidden"></div>
         </div>
 
@@ -107,6 +107,29 @@
         </div>
 
     </main>
+
+    <!-- FOOTER MEWAH DENGAN KREDIT MRD DIGITAL SOLUTION -->
+    <footer class="mt-12 bg-slate-900 text-slate-400 py-8 px-6 rounded-t-[40px] text-center space-y-4 relative z-20">
+        <!-- Sosmed Dinamis -->
+        <div id="footerSocials" class="flex justify-center space-x-6 text-white text-xs hidden">
+            <a id="link_ig" href="#" target="_blank" class="hover:text-pink-500 transition-colors font-bold">Instagram</a>
+            <a id="link_fb" href="#" target="_blank" class="hover:text-blue-500 transition-colors font-bold">Facebook</a>
+            <a id="link_tiktok" href="#" target="_blank" class="hover:text-slate-300 transition-colors font-bold">TikTok</a>
+        </div>
+
+        <div class="pt-2">
+            <button onclick="openTosModal()" data-i18n="footer_tos_btn" class="text-[10px] font-black text-blue-400 uppercase tracking-widest hover:text-white transition-colors active:scale-95">
+                📜 Syarat & Ketentuan Sewa
+            </button>
+        </div>
+
+        <div class="border-t border-slate-800/80 pt-4 text-[9px] space-y-1.5 font-medium leading-normal">
+            <p>© 2026 <span id="footerTitle">Ayu Iras Rental</span>. <span data-i18n="footer_rights">Hak Cipta Dilindungi.</span></p>
+            <p class="text-slate-500 font-bold uppercase tracking-wider text-[7px]">
+                Powered by <a href="https://mrdsolution.my.id" target="_blank" class="text-blue-500 hover:text-white transition-colors">MRD Digital Solution</a> ⚡
+            </p>
+        </div>
+    </footer>
 
     <!-- MODAL POPUP FORM BOOKING -->
     <div id="bookingModal" class="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm flex items-end justify-center hidden">
@@ -157,12 +180,51 @@
         </div>
     </div>
 
+    <!-- MODAL DIALOG SYARAT & KETENTUAN (TOS) -->
+    <div id="tosModal" class="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm flex items-center justify-center hidden" onclick="closeTosModal()">
+        <div class="bg-white w-[85%] max-w-sm rounded-[30px] p-6 text-center space-y-4 shadow-2xl" onclick="event.stopPropagation()">
+            <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto text-xl">📜</div>
+            <div class="space-y-1">
+                <h3 data-i18n="footer_tos_btn" class="font-black text-slate-800 text-xs uppercase tracking-widest">Syarat & Ketentuan</h3>
+                <div id="tos_content" class="text-[10px] text-slate-500 text-left max-h-[40vh] overflow-y-auto pr-2 whitespace-pre-line leading-relaxed font-bold mt-3">
+                    Silakan hubungi admin untuk aturan sewa resmi.
+                </div>
+            </div>
+            <button onclick="closeTosModal()" class="w-full py-3.5 bg-blue-700 text-white rounded-2xl font-black text-[10px] uppercase tracking-wider active:scale-95 transition-transform shadow-lg shadow-blue-100">
+                Tutup
+            </button>
+        </div>
+    </div>
+
+    <!-- 🌟 MODAL ALERT POPUP KUSTOM INDEPENDEN (TANPA BROWSER LINK) -->
+    <div id="customAlertModal" class="fixed inset-0 z-[9999] bg-black/40 backdrop-blur-sm flex items-center justify-center hidden">
+        <div class="bg-white w-[80%] max-w-sm rounded-[30px] p-6 text-center space-y-4 shadow-2xl transition-transform duration-300">
+            <!-- Logo dinamis (tersinkronisasi dari database) -->
+            <img id="alertLogo" src="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB" alt="Logo" class="w-16 h-16 object-contain rounded-2xl mx-auto shadow-md border border-slate-100 p-1">
+            <div class="space-y-1">
+                <h3 id="alertTitleText" class="font-black text-slate-800 text-xs uppercase tracking-widest">Ayu Iras</h3>
+                <p id="alertBodyText" class="text-[11px] text-slate-400 leading-relaxed font-bold px-2"></p>
+            </div>
+            <button type="button" id="alertCloseBtn" onclick="closeCustomAlert()" class="w-full py-4 bg-blue-700 text-white rounded-2xl font-black text-[10px] uppercase tracking-wider active:scale-95 transition-transform shadow-lg shadow-blue-100">
+                Oke / OK
+            </button>
+        </div>
+    </div>
+
+    <!-- 🌟 FLOATING WHATSAPP BUTTON (DILACAK DINAMIS DARI DATABASE) -->
+    <div id="floatingWaContainer" class="fixed bottom-6 right-6 z-[99] hidden">
+        <a id="floatingWaLink" href="https://wa.me/6285879293700" target="_blank" class="flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-[0_8px_30px_rgba(34,197,94,0.4)] active:scale-95 transition-transform duration-300">
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.003 5.156 5.156 0 11.488 0c3.069.001 5.953 1.196 8.121 3.367 2.169 2.171 3.363 5.058 3.363 8.128-1.002 6.332-5.155 11.488-11.484 11.488-2.003 0-3.974-.531-5.714-1.543L0 24zm6.59-4.846c1.6.953 3.563 1.456 5.569 1.458 5.407 0 9.811-4.403 9.816-9.813.003-2.621-1.018-5.086-2.877-6.948-1.859-1.862-4.327-2.883-6.956-2.885-5.412 0-9.821 4.403-9.826 9.813-.001 2.028.529 4.017 1.537 5.761l-.98 3.58 3.673-.965zm11.75-6.862c-.27-.134-1.59-.784-1.836-.874-.247-.09-.427-.134-.607.134-.18.267-.696.874-.853 1.05-.157.177-.315.197-.585.063-.27-.134-1.14-.42-2.172-1.34-.803-.715-1.345-1.597-1.502-1.864-.157-.267-.017-.411.118-.544.121-.12.27-.315.405-.471.135-.157.18-.268.27-.447.09-.179.045-.335-.022-.471-.067-.135-.607-1.462-.832-2.0-.218-.528-.46-.456-.607-.463-.12-.005-.26-.006-.4-.006s-.36.052-.55.247c-.19.197-.73.714-.73 1.74s.51 2.016.58 2.106c.07.09 1.01 1.543 2.45 2.165.342.148.61.237.818.304.346.11.661.094.912.057.28-.041.832-.34 1.5-.664.157-.179.247-.335.247-.417 0-.083-.02-.134-.11-.268z"/>
+            </svg>
+        </a>
+    </div>
+
     <!-- JAVASCRIPT BILINGUAL ENGINE & DATA FETCH -->
     <script>
         const CLIENT_ID = "ayuiras";
         const API_URL = "https://ams.mrdsolution.my.id/api/public";
 
-        // KAMUS BAHASA DINAMIS (ID | EN)
         const TRANSLATIONS = {
             id: {
                 slogan: "Sewa Motor & Mobil Bali Terbaik",
@@ -188,6 +250,8 @@
                 summary_total: "Estimasi Total:",
                 submit_btn: "Ajukan Sewa Sekarang 🚀",
                 sewa_btn: "Sewa", 
+                footer_tos_btn: "📜 Syarat & Ketentuan Sewa",
+                footer_rights: "Hak Cipta Dilindungi.",
                 alert_date: "MOHON MAAF: Silakan tentukan Tanggal Mulai dan Selesai Sewa terlebih dahulu di kolom atas sebelum memesan unit!",
                 success_msg: "SUKSES: Pengajuan sewa berhasil diajukan! Kak Ayu Iras akan segera menghubungi Anda di WhatsApp.",
                 error_msg: "GAGAL: ",
@@ -217,6 +281,8 @@
                 summary_total: "Estimated Total:",
                 submit_btn: "Submit Rental Request Now 🚀",
                 sewa_btn: "Rent", 
+                footer_tos_btn: "📜 Rental Terms & Conditions",
+                footer_rights: "All Rights Reserved.",
                 alert_date: "SORRY: Please select your Start and End dates in the top section before booking a bike!",
                 success_msg: "SUCCESS: Rental request submitted! Kak Ayu Iras will contact you shortly on WhatsApp.",
                 error_msg: "FAILED: ",
@@ -243,6 +309,29 @@
         let currentSliderIndex = 0;
         let ownerWhatsAppNumber = "6285879293700"; 
         let customWaText = "";
+
+        // 🌟 PENIMPA (OVERRIDE) FUNGSI ALERT BAWAAN AGAR TAMPIL MEWAH (TANPA LINK WEB) [1]
+        let alertRedirectUrl = null;
+        window.alert = function(message, redirectUrl = null) {
+            const modal = document.getElementById('customAlertModal');
+            const text = document.getElementById('alertBodyText');
+            
+            if (!modal || !text) {
+                console.warn("Modal kustom belum ter-load.");
+                return;
+            }
+
+            text.innerText = message;
+            alertRedirectUrl = redirectUrl;
+            modal.classList.remove('hidden');
+        };
+
+        function closeCustomAlert() {
+            document.getElementById('customAlertModal').classList.add('hidden');
+            if (alertRedirectUrl) {
+                window.location.href = alertRedirectUrl;
+            }
+        }
 
         // ON-LOAD INITIALIZER
         window.addEventListener('DOMContentLoaded', () => {
@@ -314,7 +403,7 @@
             return "https://placehold.co/600x400/1E1E1E/ffffff?text=Unit+Ready";
         }
 
-        // 🌟 FITUR DETEKSI MODEL INTI (Squeezes complex sub-models into generic group names)
+        // FUNGSI DETEKSI MODEL INTI
         function getCoreModelName(name) {
             if (!name) return "Unit Ready";
             const n = name.toLowerCase().trim();
@@ -336,7 +425,6 @@
             if (n.includes("klx")) return "Kawasaki KLX";
             if (n.includes("wr")) return "Yamaha WR";
             
-            // Fallback jika tidak terdaftar: ambil 2 kata pertama
             return name.split(" ").slice(0, 2).join(" ");
         }
 
@@ -357,9 +445,21 @@
                     ownerWhatsAppNumber = prof.whatsapp || ownerWhatsAppNumber;
                     customWaText = sets.custom_wa_text || "";
 
-                    if(prof.nama_bisnis) document.getElementById('webTitle').innerText = prof.nama_bisnis;
+                    if(prof.nama_bisnis) {
+                        document.getElementById('webTitle').innerText = prof.nama_bisnis;
+                        document.getElementById('footerTitle').innerText = prof.nama_bisnis;
+                        document.getElementById('alertTitleText').innerText = prof.nama_bisnis; // 🌟 Judul kustom pada alert
+                    }
                     if(sets.slogan) document.getElementById('webSlogan').innerText = sets.slogan;
-                    if(sets.logo) document.getElementById('webLogo').src = sets.logo;
+                    
+                    // 🌟 SINKRONISASI LOGO KUSTOM DI WEB DAN ALERT POPUP [1]
+                    if(sets.logo) {
+                        document.getElementById('webLogo').src = sets.logo;
+                        document.getElementById('alertLogo').src = sets.logo; 
+                    }
+                    
+                    if(prof.tos) document.getElementById('tos_content').innerText = prof.tos;
+                    
                     if(sets.maps_iframe) {
                         document.getElementById('mapIframe').src = sets.maps_iframe;
                         document.getElementById('btnMapRoute').href = sets.maps_iframe.replace("&output=embed", "");
@@ -369,6 +469,21 @@
                         document.getElementById('stat_motor').innerText = sets.stats.motor || '50+';
                         document.getElementById('stat_customer').innerText = sets.stats.customer || '1000+';
                         document.getElementById('stat_years').innerText = sets.stats.years || '5+';
+                    }
+
+                    // 🌟 INTEGRASI SOSMED DINAMIS KE FOOTER
+                    if(sets.social && (sets.social.ig || sets.social.fb || sets.social.tiktok)) {
+                        document.getElementById('footerSocials').classList.remove('hidden');
+                        const s = sets.social;
+                        
+                        const ig = document.getElementById('link_ig');
+                        if(s.ig) { ig.href = `https://instagram.com/${s.ig.replace('@','')}`; ig.classList.remove('hidden'); } else { ig.classList.add('hidden'); }
+                        
+                        const fb = document.getElementById('link_fb');
+                        if(s.fb) { fb.href = `https://facebook.com/${s.fb}`; fb.classList.remove('hidden'); } else { fb.classList.add('hidden'); }
+                        
+                        const tt = document.getElementById('link_tiktok');
+                        if(s.tiktok) { tt.href = `https://tiktok.com/${s.tiktok}`; tt.classList.remove('hidden'); } else { tt.classList.add('hidden'); }
                     }
 
                     if(sets.sliders && sets.sliders.filter(s => s !== "").length > 0) {
@@ -462,7 +577,7 @@
 
                     let categorisedUnits = { "MAXI / PREMIUM SCOOTER 👑": [], "CASUAL / CLASSIC SCOOTER 🛵": [], "ADVENTURE & SPORT BIKES 🏍️": [], "ARMADA RENTAL LAINNYA 🚙": [] };
 
-                    // 🌟 1. LOGIKA GABUNGKAN UNIT KEMBAR BERDASARKAN MODEL INTI & HARGA (ANTI-SEMRAWUT)
+                    // LOGIKA GABUNGKAN UNIT KEMBAR BERDASARKAN MODEL INTI & HARGA (ANTI-SEMRAWUT)
                     const grouped = {};
                     res.units.forEach(m => {
                         const priceNum = parseFloat(m.harga_per_hari || 0);
@@ -513,6 +628,9 @@
                             let cardsHtml = "";
                             list.forEach(m => {
                                 const fixFotoUnit = m.foto_unit && m.foto_unit.trim() !== "" ? m.foto_unit : getAutoImage(m.nama_unit);
+                                
+                                // ULTRA-ROBUST "AIR" SENSOR
+                                const isAirPlate = m.no_polisi && m.no_polisi.toUpperCase().replace(/[\s-]/g, '').startsWith("AIR");
 
                                 cardsHtml += `
                                     <div class="bg-white p-4 rounded-3xl shadow-sm border border-slate-200/80 flex flex-col justify-between h-full space-y-4">
@@ -539,6 +657,7 @@
                                 `;
                             });
 
+                            // RESPONSIVE GRID LAYOUT: Menggunakan md:grid-cols-2 lg:grid-cols-3 agar melebar di PC/Tablet
                             if (cardsHtml !== "") {
                                 fleetContainer.innerHTML += `
                                     <div class="space-y-2.5">
@@ -576,7 +695,7 @@
 
             const days = parseInt(durasiDisplay.innerText) || 1;
             
-            // Sembunyikan plat nomor di modal
+            const isAirPlate = plat && plat.toUpperCase().replace(/[\s-]/g, '').startsWith("AIR");
             document.getElementById('summary_motor').innerText = name.toUpperCase();
             
             document.getElementById('summary_duration').innerText = days;
@@ -615,7 +734,7 @@
                 total: totalVal
             };
 
-            // 1. Tembak data pesanan ke VPS Node.js
+            // 1. Tembak data pesanan ke VPS Node.js (untuk dikirim ke bot WA Kak Ayu)
             fetch(`${API_URL}/booking-request/${CLIENT_ID}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -642,6 +761,7 @@
                                            `💵 *ESTIMASI TOTAL:* Rp ${Number(totalVal).toLocaleString('id-ID')}\n\n` +
                                            `Saya siap mengirimkan dokumen KTP/Passport untuk proses verifikasi. Terima kasih!`;
 
+                    // Buka langsung ke nomor WA Kak Ayu Iras (+62 858-7929-3700)
                     window.open(`https://wa.me/6285879293700?text=${encodeURIComponent(structuredText)}`, '_blank');
                     
                     document.getElementById('bookingForm').reset();
@@ -654,6 +774,14 @@
                 btn.innerText = TRANSLATIONS[currentLang]['submit_btn'];
                 alert(TRANSLATIONS[currentLang]['conn_error']);
             });
+        }
+
+        // --- 🌟 TRIGGER MODAL DIALOG TOS ---
+        function openTosModal() {
+            document.getElementById('tosModal').classList.remove('hidden');
+        }
+        function closeTosModal() {
+            document.getElementById('tosModal').classList.add('hidden');
         }
     </script>
 </body>
