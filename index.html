@@ -15,6 +15,7 @@
 
     <!-- HERO AREA & BILINGUAL TOGGLE -->
     <header id="heroSection" class="relative bg-blue-900 text-white px-6 py-16 rounded-b-[50px] shadow-lg text-center overflow-hidden transition-all duration-1000 bg-cover bg-center h-80 flex flex-col justify-center items-center">
+        <!-- Overlay Gelap -->
         <div class="absolute inset-0 bg-black/50 z-0"></div>
         
         <!-- TOMBOL TOGGLE BAHASA ID | EN DI POJOK KANAN ATAS -->
@@ -308,7 +309,7 @@
         let ownerWhatsAppNumber = "6285879293700"; 
         let customWaText = "";
 
-        // OVERRIDE POPUP ALERT KUSTOM BIASA
+        // PENIMPA FUNGSI ALERT BAWAAN AGAR TAMPIL MEWAH (TANPA LINK WEB)
         let alertRedirectUrl = null;
         window.alert = function(message, redirectUrl = null) {
             const modal = document.getElementById('customAlertModal');
@@ -331,6 +332,7 @@
             }
         }
 
+        // ON-LOAD INITIALIZER
         window.addEventListener('DOMContentLoaded', () => {
             setLanguage(currentLang);
             fetchWebProfile();
@@ -338,6 +340,7 @@
             cariMotor(); 
         });
 
+        // TOGGLE BAHASA
         function toggleLanguage() {
             const nextLang = currentLang === 'id' ? 'en' : 'id';
             setLanguage(nextLang);
@@ -368,6 +371,7 @@
             cariMotor();
         }
 
+        // FUNGSI SELEKTOR GAMBAR OTOMATIS
         function getAutoImage(type) {
             if (!type) return "https://placehold.co/600x400/1E1E1E/ffffff?text=Unit+Ready";
             const t = type.toLowerCase().replace(/\s+/g, '');
@@ -642,7 +646,7 @@
                                             <span class="text-[8px] font-black uppercase text-green-600 bg-green-50 px-2 py-0.5 rounded-md">
                                                 ${currentLang === 'id' ? `Tersedia: ${m.count} Unit` : `${m.count} Bikes Ready`}
                                             </span>
-                                            <button type="button" onclick="openBookingModal('${m.id}', '${m.nama_unit}', '${m.harga_per_hari}', '${m.no_polisi}')" class="px-4 py-2 bg-blue-600 text-white text-[9px] font-black rounded-xl uppercase tracking-wider active:scale-90 transition-transform shadow-md">
+                                            <button type="button" onclick="openBookingModal('${m.id}', '${m.nama_unit}', '${m.harga_per_hari}', '${m.no_polisi}')" class="px-4 py-2 bg-blue-600 text-white text-[9px] font-black rounded-xl uppercase tracking-wider active:scale-95 transition-transform shadow-md">
                                                 ⚡ ${TRANSLATIONS[currentLang]['sewa_btn']}
                                             </button>
                                         </div>
