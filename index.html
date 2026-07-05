@@ -2,75 +2,106 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayu Iras Rental - Sewa Motor Bali Terbaik</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ayu Iras Rental - Sewa Motor & Mobil Bali Terbaik</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-slate-50 text-slate-800 pb-12">
 
-    <!-- HERO SECTION -->
-    <header class="bg-blue-700 text-white px-6 py-12 rounded-b-[50px] shadow-lg text-center space-y-4">
-        <!-- Logo Konversi Google Drive -->
-        <img src="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB" alt="Ayu Iras Logo" class="w-24 h-24 object-contain mx-auto rounded-3xl shadow-md border border-white/20 bg-white p-1">
-        <div>
-            <h1 class="text-2xl font-black uppercase tracking-tight leading-none">Ayu Iras Rental</h1>
-            <p class="text-xs text-blue-200 font-bold uppercase tracking-widest mt-1">Sewa Motor & Mobil Premium Bali</p>
+    <!-- HERO & SLIDER AREA (Gambar Latar Belakang Berganti Otomatis dari MySQL) -->
+    <header id="heroSection" class="relative bg-blue-900 text-white px-6 py-16 rounded-b-[50px] shadow-lg text-center overflow-hidden transition-all duration-1000 bg-cover bg-center h-80 flex flex-col justify-center items-center">
+        <!-- Overlay Gelap agar Teks Tetap Mudah Dibaca -->
+        <div class="absolute inset-0 bg-black/50 z-0"></div>
+        
+        <div class="relative z-10 space-y-4">
+            <!-- Logo Konversi Google Drive Dinamis -->
+            <img id="webLogo" src="https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB" alt="Logo" class="w-20 h-20 object-contain mx-auto rounded-3xl shadow-lg bg-white p-1">
+            <div>
+                <h1 id="webTitle" class="text-2xl font-black uppercase tracking-tight leading-none">Ayu Iras Rental</h1>
+                <p id="webSlogan" class="text-xs text-blue-200 font-bold uppercase tracking-widest mt-1.5">Sewa Motor & Mobil Bali</p>
+            </div>
         </div>
     </header>
 
-    <main class="p-6 max-w-lg mx-auto space-y-6">
+    <main class="p-4 max-w-lg mx-auto space-y-6 -mt-10 relative z-20">
 
-        <!-- PANEL CARI MOTOR (FORM TANGGAL) -->
-        <div class="bg-white p-6 rounded-[30px] shadow-sm border border-slate-200 space-y-4">
-            <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest text-center">Cek Ketersediaan Armada</h3>
+        <!-- 🌟 FITUR 5 & 6: PANEL CARI MOTOR (FORM TANGGAL ANTI-BENTROK) -->
+        <div class="bg-white p-6 rounded-[30px] shadow-xl border border-slate-200/50 space-y-4">
+            <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest text-center">Formulir Cek Ketersediaan Unit</p>
             
             <div class="grid grid-cols-2 gap-3">
                 <div>
-                    <label class="text-[9px] font-black text-slate-400 uppercase">Mulai Sewa</label>
-                    <input type="datetime-local" id="tgl_sewa" onchange="cariMotor()" class="w-full mt-1 p-3 rounded-2xl bg-slate-50 border border-slate-200 outline-none font-bold text-xs">
+                    <label class="text-[8px] font-black text-slate-400 uppercase">Mulai Sewa</label>
+                    <input type="datetime-local" id="tgl_sewa" onchange="cariMotor()" class="w-full mt-1 p-3 rounded-2xl bg-slate-50 border border-slate-200 outline-none font-bold text-xs text-slate-700">
                 </div>
                 <div>
-                    <label class="text-[9px] font-black text-slate-400 uppercase">Selesai Sewa</label>
-                    <input type="datetime-local" id="tgl_kembali" onchange="cariMotor()" class="w-full mt-1 p-3 rounded-2xl bg-slate-50 border border-slate-200 outline-none font-bold text-xs">
+                    <label class="text-[8px] font-black text-slate-400 uppercase">Selesai Sewa</label>
+                    <input type="datetime-local" id="tgl_kembali" onchange="cariMotor()" class="w-full mt-1 p-3 rounded-2xl bg-slate-50 border border-slate-200 outline-none font-bold text-xs text-slate-700">
                 </div>
             </div>
-            <div class="text-center">
-                <span class="text-[10px] font-bold text-slate-500">Durasi Rencana: <strong id="durasiText" class="text-blue-700">0 Hari</strong></span>
+            <div class="text-center pt-1">
+                <span class="text-[10px] font-black text-slate-500 uppercase">Durasi Rencana: <strong id="durasiText" class="text-blue-700">0 Hari</strong></span>
             </div>
         </div>
 
-        <!-- DAFTAR MOTOR REAL-TIME -->
+        <!-- 🌟 DAFTAR UNIT KELOMPOK TIPE MOTOR (DYNAMIC BROWSER FILTER) -->
         <div class="space-y-3">
-            <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Pilihan Armada Tersedia</h3>
+            <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Pilihan Armada Ready</h3>
             
-            <div id="statusMessage" class="text-center py-12 bg-white rounded-[30px] border border-dashed border-slate-200 text-xs text-slate-400 font-bold">
-                Silakan tentukan tanggal mulai dan selesai sewa di atas untuk melihat motor yang ready.
+            <div id="statusMessage" class="text-center py-12 bg-white rounded-[30px] border border-dashed border-slate-200 text-xs text-slate-400 font-bold px-4 leading-relaxed">
+                Silakan tentukan tanggal mulai dan selesai sewa di atas untuk menyisir armada kami yang ready.
             </div>
 
-            <div id="unitContainer" class="space-y-3 hidden"></div>
+            <!-- Wadah Pengelompokan Tipe Motor Dinamis -->
+            <div id="fleetContainer" class="space-y-6 hidden"></div>
         </div>
 
-        <!-- PETA LOKASI GARASI -->
+        <!-- 🌟 FITUR 4: BLOG / PROMO FEED INSTAN (WYSIWYG HTML RENDERED) -->
+        <div id="blogSection" class="space-y-3 hidden">
+            <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Promo & Berita Terbaru</h3>
+            <div id="blogContainer" class="flex space-x-4 overflow-x-auto pb-3 no-scrollbar snap-x">
+                <!-- Data promo dari Quill.js disedot ke sini -->
+            </div>
+        </div>
+
+        <!-- 🌟 FITUR 10: STATISTIK LAYANAN -->
+        <div id="statsSection" class="bg-gradient-to-br from-blue-700 to-blue-900 p-6 rounded-[30px] text-white shadow-lg grid grid-cols-3 gap-2 text-center">
+            <div>
+                <p class="text-[8px] font-bold opacity-60 uppercase">Total Motor</p>
+                <p id="stat_motor" class="text-lg font-black mt-1">50+</p>
+            </div>
+            <div class="border-x border-white/10">
+                <p class="text-[8px] font-bold opacity-60 uppercase">Tamu Puas</p>
+                <p id="stat_customer" class="text-lg font-black mt-1">1000+</p>
+            </div>
+            <div>
+                <p class="text-[8px] font-bold opacity-60 uppercase">Tahun Aktif</p>
+                <p id="stat_years" class="text-lg font-black mt-1">5+</p>
+            </div>
+        </div>
+
+        <!-- 🌟 FITUR 8: LOKASI GARASI MAPS CERDAS -->
         <div class="bg-white p-6 rounded-[30px] shadow-sm border border-slate-200 space-y-3">
             <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">Lokasi Garasi Kami</h3>
             <div class="rounded-2xl overflow-hidden border border-slate-100 h-48">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.6595469352296!2d115.1868426!3d-8.6286454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd239ed92e9a7e7%3A0xacfb88ba97c12731!2sAIR%20(Ayu%20Iras%20Rental)!5e0!3m2!1sid!2sid!4v1783174710378!5m2!1sid!2sid" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                <iframe id="mapIframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.6595469352296!2d115.1868426!3d-8.6286454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd239ed92e9a7e7%3A0xacfb88ba97c12731!2sAIR%20(Ayu%20Iras%20Rental)!5e0!3m2!1sid!2sid!4v1783174710378!5m2!1sid!2sid" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
-            <a href="https://maps.google.com/?q=AIR+(Ayu+Iras+Rental)" target="_blank" class="w-full bg-slate-100 text-slate-700 text-center block py-3 rounded-2xl text-[10px] font-black uppercase tracking-wider active:scale-95 transition-transform">
+            <a id="btnMapRoute" href="https://maps.google.com/?q=AIR+(Ayu+Iras+Rental)" target="_blank" class="w-full bg-slate-100 text-slate-700 text-center block py-3 rounded-2xl text-[9px] font-black uppercase tracking-wider active:scale-95 transition-transform">
                 📍 Dapatkan Rute di Google Maps
             </a>
         </div>
 
     </main>
 
-    <!-- MODAL POPUP FORM BOOKING -->
+    <!-- 🌟 MODAL FORM BOOKING (CHAT WA TEMPLATE CERDAS) -->
     <div id="bookingModal" class="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm flex items-end justify-center hidden">
         <div class="bg-white w-full max-w-lg rounded-t-[35px] p-6 space-y-4 max-h-[85vh] flex flex-col shadow-2xl transition-transform duration-300">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center flex-shrink-0">
                 <h3 id="bookingTitle" class="text-xs font-black text-slate-800 uppercase tracking-widest">Ajukan Sewa Motor</h3>
                 <button onclick="closeBookingModal()" class="text-xs font-black text-red-500 uppercase p-2 active:scale-75">Batal ✖</button>
             </div>
@@ -78,25 +109,26 @@
             <form id="bookingForm" onsubmit="submitBooking(event)" class="space-y-4 overflow-y-auto pb-6 no-scrollbar">
                 <input type="hidden" id="book_unit_name">
                 <input type="hidden" id="book_unit_price">
+                <input type="hidden" id="book_unit_plat">
                 
                 <div>
                     <label class="text-[9px] font-black text-slate-400 uppercase">Nama Lengkap Anda (Sesuai KTP)</label>
-                    <input type="text" id="guest_name" required placeholder="Ketik nama lengkap..." class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 outline-none font-bold text-xs uppercase">
+                    <input type="text" id="guest_name" required placeholder="Ketik nama lengkap..." class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 outline-none font-bold text-xs uppercase text-slate-700">
                 </div>
 
                 <div>
                     <label class="text-[9px] font-black text-slate-400 uppercase">Nomor WhatsApp Aktif (628...)</label>
-                    <input type="number" id="guest_wa" required placeholder="62812xxx" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 outline-none font-bold text-xs">
+                    <input type="number" id="guest_wa" required placeholder="62812xxx" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 outline-none font-bold text-xs text-slate-700">
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="text-[9px] font-black text-slate-400 uppercase">Alamat Email</label>
-                        <input type="email" id="guest_email" placeholder="Email Anda (Opsional)" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 outline-none font-bold text-xs">
+                        <input type="email" id="guest_email" placeholder="Email (Opsional)" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 outline-none font-bold text-xs text-slate-700">
                     </div>
                     <div>
                         <label class="text-[9px] font-black text-slate-400 uppercase">Username Instagram</label>
-                        <input type="text" id="guest_ig" placeholder="@username (Opsional)" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 outline-none font-bold text-xs">
+                        <input type="text" id="guest_ig" placeholder="@username (Opsional)" class="w-full p-3.5 rounded-2xl bg-slate-50 border border-slate-200 outline-none font-bold text-xs text-slate-700">
                     </div>
                 </div>
 
@@ -114,74 +146,209 @@
         </div>
     </div>
 
-    <!-- SCRIPT LOGIKA KONEKSI API KE VPS -->
+    <!-- 🌟 JAVASCRIPT ENGINE (SINKRONISASI LOGIKA) -->
     <script>
-        const t1 = document.getElementById('tgl_sewa');
-        const t2 = document.getElementById('tgl_kembali');
-        const durasiDisplay = document.getElementById('durasiText');
-        const statusMsg = document.getElementById('loadingStatus');
-        const container = document.getElementById('unitContainer');
-        const statusMessage = document.getElementById('statusMessage');
-
-        // KUNCI ID CLIENT PUNYA AYU IRAS
         const CLIENT_ID = "ayuiras";
         const API_URL = "https://ams.mrdsolution.my.id/api/public";
 
+        const t1 = document.getElementById('tgl_sewa');
+        const t2 = document.getElementById('tgl_kembali');
+        const durasiDisplay = document.getElementById('durasiText');
+        const statusMessage = document.getElementById('statusMessage');
+        const fleetContainer = document.getElementById('fleetContainer');
+
+        let defaultSliders = ["https://docs.google.com/uc?export=view&id=13YX47CjL9ztVimpu9673onHUlQIDLwfB"];
+        let activeSliders = [];
+        let currentSliderIndex = 0;
+        let ownerWhatsAppNumber = "6285879293700"; // Fallback bawaan
+
+        // ON-LOAD: Ambil Slogan, Logo, Sliders, Sosial Media, dan Blog
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchWebProfile();
+            fetchWebBlogs();
+        });
+
+        // 🌟 FETCH PROFILE SETTINGS DARI VPS MYSQL
+        function fetchWebProfile() {
+            fetch(`${API_URL}/profile/${CLIENT_ID}`)
+            .then(r => r.json())
+            .then(res => {
+                if (res.success && res.profile) {
+                    const prof = res.profile;
+                    const sets = prof.settings;
+
+                    ownerWhatsAppNumber = prof.whatsapp || ownerWhatsAppNumber;
+                    if(prof.nama_bisnis) document.getElementById('webTitle').innerText = prof.nama_bisnis;
+                    if(sets.slogan) document.getElementById('webSlogan').innerText = sets.slogan;
+                    if(sets.logo) document.getElementById('webLogo').src = sets.logo;
+                    if(sets.maps_iframe) {
+                        document.getElementById('mapIframe').src = sets.maps_iframe;
+                        document.getElementById('btnMapRoute').href = sets.maps_iframe.replace("&output=embed", "");
+                    }
+
+                    // Isi Statistik
+                    if(sets.stats) {
+                        document.getElementById('stat_motor').innerText = sets.stats.motor || '50+';
+                        document.getElementById('stat_customer').innerText = sets.stats.customer || '1000+';
+                        document.getElementById('stat_years').innerText = sets.stats.years || '5+';
+                    }
+
+                    // Jalankan Sliders bergulir otomatis
+                    if(sets.sliders && sets.sliders.filter(s => s !== "").length > 0) {
+                        activeSliders = sets.sliders.filter(s => s !== "");
+                    } else {
+                        activeSliders = defaultSliders;
+                    }
+                    startHeroSlider();
+                }
+            }).catch(e => {
+                activeSliders = defaultSliders;
+                startHeroSlider();
+            });
+        }
+
+        // FUNGSI GULIR BACKGROUND HERO SLIDER
+        function startHeroSlider() {
+            const hero = document.getElementById('heroSection');
+            hero.style.backgroundImage = `url('${activeSliders[0]}')`;
+            if (activeSliders.length > 1) {
+                setInterval(() => {
+                    currentSliderIndex = (currentSliderIndex + 1) % activeSliders.length;
+                    hero.style.backgroundImage = `url('${activeSliders[currentSliderIndex]}')`;
+                }, 5000); // Ganti gambar setiap 5 detik
+            }
+        }
+
+        // 🌟 FETCH POSTINGAN BLOG / PROMO DARI MYSQL
+        function fetchWebBlogs() {
+            fetch(`${API_URL}/posts/${CLIENT_ID}`)
+            .then(r => r.json())
+            .then(res => {
+                if (res.success && res.posts && res.posts.length > 0) {
+                    document.getElementById('blogSection').classList.remove('hidden');
+                    const blogContainer = document.getElementById('blogContainer');
+                    blogContainer.innerHTML = '';
+
+                    res.posts.forEach(p => {
+                        blogContainer.innerHTML += `
+                            <div class="snap-center shrink-0 w-[260px] bg-white p-4 rounded-3xl border border-slate-200/60 shadow-sm space-y-3">
+                                <div class="h-32 rounded-2xl overflow-hidden bg-slate-50 border border-slate-100">
+                                    <img src="${p.image_url || 'https://via.placeholder.com/150?text=Promo'}" class="w-full h-full object-cover">
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="font-black text-xs text-slate-800 uppercase leading-snug truncate">${p.title}</h4>
+                                    <!-- Render isi blog HTML Quill.js secara aman -->
+                                    <div class="text-[10px] text-slate-400 line-clamp-3 leading-normal font-medium">${p.content}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            });
+        }
+
+        // 🌟 FITUR 5 & 6: CARI MOTOR & KELOMPOKKAN SESUAI TIPE (SCOOTER / SPORT / DLL)
         function cariMotor() {
             if (t1.value && t2.value) {
+                // Bersihkan karakter 'T' untuk dikirim ke MySQL
+                const startClean = t1.value.replace('T', ' ');
+                const endClean = t2.value.replace('T', ' ');
+
                 const diff = Math.ceil((new Date(t2.value) - new Date(t1.value)) / (1000 * 60 * 60 * 24));
                 const days = diff > 0 ? diff : 1;
                 durasiDisplay.innerText = `${days} Hari`;
 
-                statusMessage.innerHTML = "Memindai armada ready di garasi Ayu Iras...";
+                statusMessage.innerHTML = `<div class="flex items-center justify-center space-x-2"><div class="w-4 h-4 border-2 border-blue-700 border-t-transparent rounded-full animate-spin"></div><span>Menyisir Garasi Ayu Iras...</span></div>`;
                 statusMessage.classList.remove('hidden');
-                container.classList.add('hidden');
+                fleetContainer.classList.add('hidden');
 
-                fetch(`${API_URL}/available-units/${CLIENT_ID}?start_date=${t1.value}&end_date=${t2.value}`)
+                fetch(`${API_URL}/available-units/${CLIENT_ID}?start_date=${startClean}&end_date=${endClean}`)
                 .then(r => r.json())
                 .then(res => {
-                    container.innerHTML = '';
+                    fleetContainer.innerHTML = '';
                     if (res.success && res.units.length > 0) {
                         statusMessage.classList.add('hidden');
-                        container.classList.remove('hidden');
+                        fleetContainer.classList.remove('hidden');
+
+                        // Kelompokkan motor secara otomatis berdasarkan kecocokan nama tipe
+                        const categories = {
+                            "MAXI / PREMIUM SCOOTER 👑": ["nmax", "pcx", "xmax", "aerox", "adv", "forza"],
+                            "CASUAL / CLASSIC SCOOTER 🛵": ["fazzio", "filano", "scoopy", "beat", "genio", "stylo", "vespa", "vario"],
+                            "ADVENTURE & SPORT BIKES 🏍️": ["crf", "klx", "wr", "xsr", "ninja", "cbr", "gsx"]
+                        };
+
+                        let categorisedUnits = { "MAXI / PREMIUM SCOOTER 👑": [], "CASUAL / CLASSIC SCOOTER 🛵": [], "ADVENTURE & SPORT BIKES 🏍️": [], "ARMADA RENTAL LAINNYA 🚙": [] };
 
                         res.units.forEach(m => {
-                            container.innerHTML += `
-                                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
-                                    <div class="flex items-center space-x-3 w-[65%]">
-                                        <div class="w-12 h-12 bg-slate-50 rounded-xl overflow-hidden flex-shrink-0 border border-slate-100">
-                                            <img src="${m.foto_unit || 'https://via.placeholder.com/150?text=Motor'}" class="w-full h-full object-cover">
-                                        </div>
-                                        <div class="truncate">
-                                            <h4 class="text-[9px] font-black text-blue-700 uppercase leading-none mb-1">${m.no_polisi}</h4>
-                                            <h2 class="text-xs font-black text-slate-800 truncate mb-1">${m.nama_unit}</h2>
-                                            <p class="text-[9px] font-bold text-slate-400 leading-none">Rp ${Number(m.harga_per_hari).toLocaleString('id-ID')}/Hari</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <button onclick="openBookingModal('${m.nama_unit}', ${m.harga_per_hari}, ${days})" class="px-4 py-2 bg-blue-600 text-white text-[9px] font-black rounded-xl uppercase tracking-wider active:scale-90 transition-transform shadow-md">
-                                        ⚡ Sewa
-                                    </button>
-                                </div>
-                            `;
+                            let namaLower = m.nama_unit.toLowerCase();
+                            let matched = false;
+
+                            for (let catName in categories) {
+                                for (let keyword of categories[catName]) {
+                                    if (namaLower.includes(keyword)) {
+                                        categorisedUnits[catName].push(m);
+                                        matched = true;
+                                        break;
+                                    }
+                                }
+                                if (matched) break;
+                            }
+                            if (!matched) categorisedUnits["ARMADA RENTAL LAINNYA 🚙"].push(m);
                         });
+
+                        // Render ke Layar per Kategori
+                        for (let catName in categorisedUnits) {
+                            const list = categorisedUnits[catName];
+                            if (list.length > 0) {
+                                let cardsHtml = "";
+                                list.forEach(m => {
+                                    cardsHtml += `
+                                        <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-200/80 flex items-center justify-between">
+                                            <div class="flex items-center space-x-3 w-[65%]">
+                                                <div class="w-12 h-12 bg-slate-50 rounded-xl overflow-hidden flex-shrink-0 border border-slate-100">
+                                                    <img src="${m.foto_unit || 'https://via.placeholder.com/150?text=Motor'}" class="w-full h-full object-cover">
+                                                </div>
+                                                <div class="truncate">
+                                                    <h4 class="text-[9px] font-black text-blue-700 uppercase leading-none mb-1">${m.no_polisi}</h4>
+                                                    <h2 class="text-xs font-black text-slate-800 truncate mb-1">${m.nama_unit}</h2>
+                                                    <p class="text-[9px] font-bold text-slate-400 leading-none">Rp ${Number(m.harga_per_hari).toLocaleString('id-ID')}/Hari</p>
+                                                </div>
+                                            </div>
+                                            <button type="button" onclick="openBookingModal('${m.id}', '${m.nama_unit}', '${m.harga_per_hari}', '${m.no_polisi}')" class="px-4 py-2 bg-blue-600 text-white text-[9px] font-black rounded-xl uppercase tracking-wider active:scale-90 transition-transform shadow-md">
+                                                ⚡ Sewa
+                                            </button>
+                                        </div>
+                                    `;
+                                });
+
+                                fleetContainer.innerHTML += `
+                                    <div class="space-y-2">
+                                        <p class="text-[8px] font-black text-blue-500 uppercase tracking-widest ml-2">${catName} (${list.length})</p>
+                                        <div class="space-y-2">${cardsHtml}</div>
+                                    </div>
+                                `;
+                            }
+                        }
+
                     } else {
-                        statusMessage.innerHTML = "Maaf, semua armada kami penuh disewa pada tanggal tersebut.";
+                        statusMessage.innerText = "Maaf, semua armada motor sudah penuh disewa pada tanggal tersebut.";
                         statusMessage.classList.remove('hidden');
                     }
                 })
                 .catch(err => {
-                    statusMessage.innerHTML = "Koneksi ke server terputus!";
+                    statusMessage.innerText = "Gangguan koneksi sistem!";
                 });
             }
         }
 
-        // --- SISTEM MODAL BOOKING ---
-        function openBookingModal(name, price, days) {
+        // --- SISTEM MODAL FORM BOOKING ---
+        function openBookingModal(id, name, price, plat) {
             document.getElementById('book_unit_name').value = name;
             document.getElementById('book_unit_price').value = price;
-            
-            document.getElementById('summary_motor').innerText = name.toUpperCase();
+            document.getElementById('book_unit_plat').value = plat;
+
+            const days = parseInt(durasiDisplay.innerText) || 1;
+            document.getElementById('summary_motor').innerText = `${name.toUpperCase()} (${plat})`;
             document.getElementById('summary_duration').innerText = days;
             document.getElementById('summary_price').innerText = Number(price).toLocaleString('id-ID');
             document.getElementById('summary_total').innerText = Number(price * days).toLocaleString('id-ID');
@@ -193,16 +360,16 @@
             document.getElementById('bookingModal').classList.add('hidden');
         }
 
+        // --- 🌟 SUBMIT BOOKING (TRIGGER NOTIFIKASI WA BOT) ---
         function submitBooking(event) {
             event.preventDefault();
             const btn = document.getElementById('btnSubmit');
             btn.disabled = true;
             btn.innerText = "MENGIRIM PERMINTAAN...";
 
-            const startVal = t1.value;
-            const endVal = t2.value;
-            const diff = Math.ceil((new Date(endVal) - new Date(startVal)) / (1000 * 60 * 60 * 24));
-            const days = diff > 0 ? diff : 1;
+            const startVal = t1.value.replace('T', ' ');
+            const endVal = t2.value.replace('T', ' ');
+            const days = parseInt(durasiDisplay.innerText) || 1;
 
             const payload = {
                 name: document.getElementById('guest_name').value,
@@ -226,9 +393,8 @@
                 btn.disabled = false;
                 btn.innerText = "Ajukan Sewa Sekarang 🚀";
                 if (res.success) {
-                    alert("SUKSES: Pengajuan sewa berhasil dikirim! Silakan tunggu pesan WhatsApp dari Kak Ayu Iras.");
+                    alert("SUKSES: Pengajuan sewa berhasil diajukan! Kak Ayu Iras akan segera menghubungi Anda di WhatsApp.");
                     closeBookingModal();
-                    // Reset form
                     document.getElementById('bookingForm').reset();
                 } else {
                     alert("GAGAL: " + res.message);
@@ -237,7 +403,7 @@
             .catch(err => {
                 btn.disabled = false;
                 btn.innerText = "Ajukan Sewa Sekarang 🚀";
-                alert("Gangguan koneksi ke server VPS!");
+                alert("Gangguan koneksi ke server!");
             });
         }
     </script>
