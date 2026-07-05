@@ -19,7 +19,7 @@
         <div class="absolute inset-0 bg-black/50 z-0"></div>
         
         <!-- TOMBOL TOGGLE BAHASA ID | EN DI POJOK KANAN ATAS -->
-        <div onclick="toggleLanguage()" class="absolute top-6 right-6 bg-white/20 backdrop-blur border border-white/25 px-3 py-1.5 rounded-full text-[10px] font-black text-white flex items-center space-x-1 cursor-pointer active:scale-95 transition-transform z-30 registrar-btn uppercase tracking-widest">
+        <div onclick="toggleLanguage()" class="absolute top-6 right-6 bg-white/20 backdrop-blur border border-white/25 px-3 py-1.5 rounded-full text-[10px] font-black text-white flex items-center space-x-1 cursor-pointer active:scale-95 transition-transform z-30 uppercase tracking-widest">
             🌐 <span id="langBtnText">EN | ID</span>
         </div>
 
@@ -108,7 +108,7 @@
 
     </main>
 
-    <!-- FOOTER MEWAH DENGAN KREDIT MRD DIGITAL SOLUTION -->
+    <!-- FOOTER MEWAH DENGAN KREDIT MRD DIGITAL SOLUTION (WWW LINK AKTIF) -->
     <footer class="mt-12 bg-slate-900 text-slate-400 py-8 px-6 rounded-t-[40px] text-center space-y-4 relative z-20">
         <!-- Sosmed Dinamis -->
         <div id="footerSocials" class="flex justify-center space-x-6 text-white text-xs hidden">
@@ -126,7 +126,8 @@
         <div class="border-t border-slate-800/80 pt-4 text-[9px] space-y-1.5 font-medium leading-normal">
             <p>© 2026 <span id="footerTitle">Ayu Iras Rental</span>. <span data-i18n="footer_rights">Hak Cipta Dilindungi.</span></p>
             <p class="text-slate-500 font-bold uppercase tracking-wider text-[7px]">
-                Powered by <a href="https://mrdsolution.my.id" target="_blank" class="text-blue-500 hover:text-white transition-colors">MRD Digital Solution</a> ⚡
+                <!-- 🌟 WWW LINK TER-UPDATE KE: https://www.mrdsolution.my.id -->
+                Powered by <a href="https://www.mrdsolution.my.id" target="_blank" class="text-blue-500 hover:text-white transition-colors">MRD Digital Solution</a> ⚡
             </p>
         </div>
     </footer>
@@ -211,9 +212,9 @@
         </div>
     </div>
 
-    <!-- 🌟 FLOATING WHATSAPP BUTTON (DILACAK DINAMIS DARI DATABASE) -->
+    <!-- 🌟 FLOATING WHATSAPP BUTTON (DILACAK DINAMIS & GAK HIDDEN LAGI!) -->
     <div id="floatingWaContainer" class="fixed bottom-6 right-6 z-[99] hidden">
-        <a id="floatingWaLink" href="https://wa.me/6285879293700" target="_blank" class="flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-[0_8px_30px_rgba(34,197,94,0.4)] active:scale-95 transition-transform duration-300">
+        <a id="floatingWaLink" href="https://wa.me/6285879293700" target="_blank" class="flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-[0_8px_30px_rgba(34,197,94,0.4)] active:scale-95 transition-transform duration-300 animate-bounce">
             <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.003 5.156 5.156 0 11.488 0c3.069.001 5.953 1.196 8.121 3.367 2.169 2.171 3.363 5.058 3.363 8.128-1.002 6.332-5.155 11.488-11.484 11.488-2.003 0-3.974-.531-5.714-1.543L0 24zm6.59-4.846c1.6.953 3.563 1.456 5.569 1.458 5.407 0 9.811-4.403 9.816-9.813.003-2.621-1.018-5.086-2.877-6.948-1.859-1.862-4.327-2.883-6.956-2.885-5.412 0-9.821 4.403-9.826 9.813-.001 2.028.529 4.017 1.537 5.761l-.98 3.58 3.673-.965zm11.75-6.862c-.27-.134-1.59-.784-1.836-.874-.247-.09-.427-.134-.607.134-.18.267-.696.874-.853 1.05-.157.177-.315.197-.585.063-.27-.134-1.14-.42-2.172-1.34-.803-.715-1.345-1.597-1.502-1.864-.157-.267-.017-.411.118-.544.121-.12.27-.315.405-.471.135-.157.18-.268.27-.447.09-.179.045-.335-.022-.471-.067-.135-.607-1.462-.832-2.0-.218-.528-.46-.456-.607-.463-.12-.005-.26-.006-.4-.006s-.36.052-.55.247c-.19.197-.73.714-.73 1.74s.51 2.016.58 2.106c.07.09 1.01 1.543 2.45 2.165.342.148.61.237.818.304.346.11.661.094.912.057.28-.041.832-.34 1.5-.664.157-.179.247-.335.247-.417 0-.083-.02-.134-.11-.268z"/>
             </svg>
@@ -310,27 +311,29 @@
         let ownerWhatsAppNumber = "6285879293700"; 
         let customWaText = "";
 
-        // 🌟 PENIMPA (OVERRIDE) FUNGSI ALERT BAWAAN AGAR TAMPIL MEWAH (TANPA LINK WEB) [1]
+        // PENIMPA FUNGSI ALERT BAWAAN AGAR TAMPIL MEWAH (TANPA LINK WEB)
         let alertRedirectUrl = null;
         window.alert = function(message, redirectUrl = null) {
             const modal = document.getElementById('customAlertModal');
-            const text = document.getElementById('alertBodyText');
+            const text = document.getElementById('webLogo'); // wait, let's make sure it targets webLogo properly or we target text
+            const alertText = document.getElementById('globalAlertText');
+            const btn = document.getElementById('globalAlertBtn');
             
-            if (!modal || !text) {
-                console.warn("Modal kustom belum ter-load.");
+            if (!modal || !alertText) {
+                // fallback aman jika modal tidak terpasang
+                try {
+                    alert(message);
+                    if (redirectUrl) window.location.href = redirectUrl;
+                } catch(e) {}
                 return;
             }
 
-            text.innerText = message;
-            alertRedirectUrl = redirectUrl;
+            alertText.innerText = message;
             modal.classList.remove('hidden');
-        };
+        }
 
-        function closeCustomAlert() {
+        function closeAlertModal() {
             document.getElementById('customAlertModal').classList.add('hidden');
-            if (alertRedirectUrl) {
-                window.location.href = alertRedirectUrl;
-            }
         }
 
         // ON-LOAD INITIALIZER
@@ -452,7 +455,7 @@
                     }
                     if(sets.slogan) document.getElementById('webSlogan').innerText = sets.slogan;
                     
-                    // 🌟 SINKRONISASI LOGO KUSTOM DI WEB DAN ALERT POPUP [1]
+                    // SINKRONISASI LOGO KUSTOM DI WEB DAN ALERT POPUP [1]
                     if(sets.logo) {
                         document.getElementById('webLogo').src = sets.logo;
                         document.getElementById('alertLogo').src = sets.logo; 
@@ -484,6 +487,15 @@
                         
                         const tt = document.getElementById('link_tiktok');
                         if(s.tiktok) { tt.href = `https://tiktok.com/${s.tiktok}`; tt.classList.remove('hidden'); } else { tt.classList.add('hidden'); }
+                    }
+
+                    // 🌟 UNHIDE FLOATING WA SETELAH DATA DARI DATABASE SELESAI DIDAPAT SECARA LIVE!
+                    const floatingWaLink = document.getElementById('floatingWaLink');
+                    const floatingWaContainer = document.getElementById('floatingWaContainer');
+                    if (floatingWaLink && floatingWaContainer) {
+                        const welcomeText = encodeURIComponent(customWaText || "Hello Ayu Iras Rental, I want to rent a motorbike.");
+                        floatingWaLink.href = `https://wa.me/${ownerWhatsAppNumber}?text=${welcomeText}`;
+                        floatingWaContainer.classList.remove('hidden'); // <-- 🌟 AKSI UNHIDE DI SINI!
                     }
 
                     if(sets.sliders && sets.sliders.filter(s => s !== "").length > 0) {
@@ -552,6 +564,7 @@
                 durasiDisplay.innerText = `0 ${TRANSLATIONS[currentLang]['hari']}`;
             }
 
+            // SINKRONISASI BAHASA: Mengubah teks loading sesuai kamus bahasa yang aktif (ID / EN)
             statusMessage.innerHTML = `<div class="flex items-center justify-center space-x-2"><div class="w-4 h-4 border-2 border-blue-700 border-t-transparent rounded-full animate-spin"></div><span>${TRANSLATIONS[currentLang]['loading']}</span></div>`;
             statusMessage.classList.remove('hidden');
             fleetContainer.classList.add('hidden');
